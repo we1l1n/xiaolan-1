@@ -108,8 +108,8 @@ class hass(object):
 		c = 'orange'
 		return c
 	elif '绿色' in text:
-			c = 'green'
-			return c
+		c = 'green'
+		return c
 	elif '蓝色' in text:
 		c = 'blue'
 		return c
