@@ -8,7 +8,7 @@ sys.path.append('/home/pi/xiaolan/')
 import speaker
 from stt import baidu_stt
 from tts import baidu_tts
-import recorder
+from recorder import recorder
 # 此处的dht11已经被移到了raspberrypi_gpio.py技能中
 
 #USB摄像头
