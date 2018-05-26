@@ -89,7 +89,7 @@ class hass(object):
                 friendly_name = r_jsons['attributes']['friendly_name']
                 domain = entity_id.split(".")[0]
                 e_id[friendly_name] = entity_id
-        except KeyError:
+        except TypeError:
             bt.tts('homeassistant设备实体码获取失败', tok)
             speaker.speak()
 	else:
@@ -225,7 +225,7 @@ class hass(object):
           	   'content-type': 'application/json'}
 
         if passwd != None or passwd != '':
-            e_id = hass.e_id(tok)
+            e_id = h.e_id(tok)
             service = '/api/states' + e_id[getstatethings]
             r = requests.get(url + ':' + port + service,
                              headers=headers)
