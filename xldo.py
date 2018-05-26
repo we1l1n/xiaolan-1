@@ -103,7 +103,7 @@ try:
     
     if sys.argv[1] != None:
         mode = sys.argv[1]
-        elif mode == 'unawaken':
+        if mode == 'unawaken':
             convenstation()
         elif mode == 'awaken':
             awaken()
