@@ -10,7 +10,7 @@ sys.path.append('/home/pi/xiaolan/')
 import speaker
 from stt import baidu_stt
 from tts import baidu_tts
-import recorder
+from recorder import recorder
 
 def start(tok):
 
@@ -128,7 +128,7 @@ class hass(object):
         bt = baidu_tts()
         bs = baidu_stt(1, 2, 3, 4)
         r = recorder()
-        hass = hass()
+        h = hass()
         
         url = 'http://hassio.local'
 	port = '8123'
@@ -138,7 +138,7 @@ class hass(object):
           	   'content-type': 'application/json'}
 
 	try:
-            e_id = hass.e_id(tok)
+            e_id = h.e_id(tok)
             cortolthings = unicode(cortolthings, "utf-8", "ignore")
 
             if cortolmode == 'turn_on':
@@ -158,7 +158,7 @@ class hass(object):
                         r.record()
                         speaker.dong()
                         text = bs.stt('./voice.wav', tok)
-                        color_name = hass.choose_color(text)
+                        color_name = h.choose_color(text)
                         service = '/api/services/light/turn_on'
 
             if cortolmode == 'turn_off':
@@ -215,7 +215,7 @@ class hass(object):
         bt = baidu_tts()
         bs = baidu_stt(1, 2, 3, 4)
         r = recorder()
-        hass = hass()
+        h = hass()
         
         url = 'http://hassio.local'
 	port = '8123'
