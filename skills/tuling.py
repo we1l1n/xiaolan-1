@@ -10,7 +10,7 @@ sys.path.append('/home/pi/xiaolan/')
 from stt import baidu_stt
 from tts import baidu_tts
 import speaker
-import recorder
+from recorder import recorder
 
 def start(text, tok):
   
