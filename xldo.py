@@ -99,4 +99,17 @@ class skills(object):
             intent = nlp.do_intent(text, tok)
             s.getskills(intent, text, tok)
 
-welcome()
+try:
+    
+    if sys.argv[1] != None:
+        mode = sys.argv[1]
+        elif mode == 'unawaken':
+            convenstation()
+        elif mode == 'awaken':
+            awaken()
+        elif mode == 'convenstation':
+            convenstation()
+    else:
+        welcome()
+except:
+    welcome()
