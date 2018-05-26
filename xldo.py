@@ -85,6 +85,8 @@ class skills(object):
             joke.start(tok)
         elif intent == 'news':
             news.start(tok)
+        elif intent == 'tuling':
+            tuling.start(text, tok)
         elif intent == 'snowboytrain':
             snowboytrain.start(tok)
         elif intent == 'raspberrypi-gpio':
@@ -97,7 +99,7 @@ class skills(object):
             intent = nlp.do_intent(text, tok)
             s.getskills(intent, text, tok)
 
-try: 
+try:
     mode = sys.argv[1]
     if mode == 'unwelcome':
         awaken()
@@ -110,4 +112,4 @@ try:
     else:
         welcome()
 except:
-    welcome()
+    print ('错误！请随意输入一个字符，如python xldo.py a')
