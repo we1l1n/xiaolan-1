@@ -74,11 +74,11 @@ def do_intent(text, tok):
                 cortolthings = text[6:-2]
                 print cortolthings
                 cortolmode = 'turn_on'
-                sm.cortol(cortolthings, cortolmode, tok)
+                sm.cortol(cortolmode, cortolthings, tok)
         elif '关闭' in text:
                 cortolthings = text[6:-2]
                 cortolmode = 'turn_off'
-                sm.cortol(cortolthings, cortolmode, tok)
+                sm.cortol(cortolmode, cortolthings, tok)
         elif '天气' in text:
                 intent = 'weather'
                 return intent
