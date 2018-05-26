@@ -99,17 +99,4 @@ class skills(object):
             intent = nlp.do_intent(text, tok)
             s.getskills(intent, text, tok)
 
-try:
-    mode = sys.argv[1]
-    if mode == 'unwelcome':
-        awaken()
-    elif mode == 'unawaken':
-        convenstation()
-    elif mode == 'awaken':
-        awaken()
-    elif mode == 'convenstation':
-        convenstation()
-    else:
-        welcome()
-except:
-    print ('错误！请随意输入一个字符，如python xldo.py a')
+welcome()
