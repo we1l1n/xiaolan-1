@@ -64,7 +64,7 @@ class xlMusic(object):
             elif command == 'exit':
                 bt.tts('谢谢使用，下次再见', tok)
                 speaker.speak()
-                os.system('python /home/pi/xiaolan/xldo.py awaken')
+                os.system('python /home/pi/xiaolan/snowboy.py')
                 break
             elif command == 're':
                 bt.tts('对不起，我没有听清楚您说了什么？', tok)
@@ -228,7 +228,6 @@ class xlMusic(object):
             elif command == 'exit':
                 bt.tts('谢谢使用，下次再见', tok)
                 speaker.speak()
-                os.system('python /home/pi/xiaolan/xiaolan/xldo.py b')
             elif command == 're':
                 bt.tts('对不起，我没有听清楚您说了什么？', tok)
                 speaker.speak()
