@@ -137,7 +137,8 @@ def do_intent(text, tok):
                 songname = text[3:-1]
                 m.sou_suo(services, songname, tok)
         else:
-                tuling.start(text, tok)
+                intent = 'tuling'
+                return intent
     else:
         intent = 'no'
         return intent
