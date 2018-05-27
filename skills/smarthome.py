@@ -11,6 +11,7 @@ import speaker
 from stt import baidu_stt
 from tts import baidu_tts
 from recorder import recorder
+import setting
 
 def start(tok):
 
@@ -28,7 +29,7 @@ class hass(object):
         bt = baidu_tts()
         bs = baidu_stt(1, 2, 3, 4)
         r = recorder()
-        hass = hass()
+        h = hass()
 
         bt.tts('欢迎使用小蓝专用智能家居控制系统！请在，滴，一声之后说出指令，目前仅支持homeassistant', tok)
         speaker.speak()
@@ -53,11 +54,11 @@ class hass(object):
         
         if command == 'turn_on':
             
-            hass.cortol('turn_on', commands[6:-2], tok)
+            h.cortol('turn_on', commands[6:-2], tok)
 
         elif command == 'turn_off':
 
-            hass.cortol('turn_off', commands[6:-2], tok)
+            h.cortol('turn_off', commands[6:-2], tok)
         
         elif command == 'get_sensor':
 
@@ -65,15 +66,16 @@ class hass(object):
                 getstatemode = 'sensor'
             else:
                 getstatemode = 'switch'
-            hass.sensor(getstatemode, commands[6:-3], tok)
+            h.sensor(getstatemode, commands[6:-3], tok)
 
 
     def e_id(self, tok):
 
         bt = baidu_tts()
-        url = 'http://hassio.local'
-	port = '8123'
-	passwd = 'y20050801'
+	setting = setting.setting()
+        url = setting['smarthome']['url']
+	port = setting['smarthome']['port']
+	passwd = setting['smarthome']['passwd']
 	service = '/api/states'
 	headers = {'x-ha-access': passwd,
           	   'content-type': 'application/json'}
@@ -130,9 +132,10 @@ class hass(object):
         r = recorder()
         h = hass()
         
-        url = 'http://hassio.local'
-	port = '8123'
-	passwd = 'y20050801'
+        setting = setting.setting()
+        url = setting['smarthome']['url']
+	port = setting['smarthome']['port']
+	passwd = setting['smarthome']['passwd']
 	service = '/api/states'
 	headers = {'x-ha-access': passwd,
           	   'content-type': 'application/json'}
@@ -217,9 +220,10 @@ class hass(object):
         r = recorder()
         h = hass()
         
-        url = 'http://hassio.local'
-	port = '8123'
-	passwd = 'y20050801'
+        setting = setting.setting()
+        url = setting['smarthome']['url']
+	port = setting['smarthome']['port']
+	passwd = setting['smarthome']['passwd']
 	service = '/api/states'
 	headers = {'x-ha-access': passwd,
           	   'content-type': 'application/json'}
