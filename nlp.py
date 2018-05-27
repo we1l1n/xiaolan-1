@@ -22,8 +22,8 @@ from music import xlMusic
 def get_intent(text):
 
         urlf = 'http://api.xfyun.cn/v1/aiui/v1/text_semantic?text='
-        appid = '5ace1bbb'
-        apikey = '9e1b8f6028b14b969cdec166eca127ea'
+        appid = setting.setting()['main_setting']['NLP']['appid']
+        apikey = setting.setting()['main_setting']['NLP']['key']
         lastmdl = 'eyJ1c2VyaWQiOiIxMyIsInNjZW5lIjoibWFpbiJ9'
         curtimeo = int(time.time())
         curtimef = str(curtimeo)
