@@ -13,7 +13,7 @@ def setting():
                    'STT': 'Baidu_STT', #STT服务选择，目前仅支持百度
                    'TTS': 'Baiud_TTS', #TTS服务选择，目前仅支持百度
                    'NLP': {
-                       'key': '',
+                       'key': '9e1b8f6028b14b969cdec166eca127ea',
                        'appid': ''
                    }
                    'your_name': '翊闳',
