@@ -20,7 +20,8 @@ def start(tok):
 def main(tok):
     
     url = 'http://api.avatardata.cn/Joke/QueryJokeByTime?key='
-    key = 'a63ac25e95f741aea51167a05891498c'
+    setting = setting.setting()
+    key = setting['joke']['key']
     bt = baidu_tts()
     bs = baidu_stt(1, 'a', 2, '{')
     chose = random.randint(0,9)
