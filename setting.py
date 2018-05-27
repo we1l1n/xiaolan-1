@@ -5,7 +5,7 @@ import sys
 import os
 
 
-def set():
+def setting():
     setting = {
                #设置分层第一层（技能，TTS,STT的设置）
                'main_setting': {
