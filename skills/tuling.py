@@ -11,6 +11,7 @@ from stt import baidu_stt
 from tts import baidu_tts
 import speaker
 from recorder import recorder
+import setting
 
 def start(text, tok):
   
@@ -18,8 +19,9 @@ def start(text, tok):
     
 def main(text, tok):
     
-    ak = 'c380ed8f2880443c84892ace36ba6bad'
-    ui = '167031'
+    setting = setting.setting()
+    ak = setting['tuling']['key']
+    ui = setting['tuling']['user_id']
     url = 'http://openapi.tuling123.com/openapi/api/v2'
     dataf = {
 	      "reqType":0,
