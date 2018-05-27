@@ -14,6 +14,7 @@ from stt import baidu_stt
 from tts import baidu_tts
 import speaker
 from recorder import recorder
+import setting
 
 def start(tok):
 
@@ -25,7 +26,7 @@ def main(tok):
     bs = baidu_stt(1, 'a', 2, '{')
     r = recorder()
     host = 'https://api.seniverse.com/v3/weather/now.json?key='
-    key = 'sxyi6ehxblxkqeto'
+    key = setting.setting()['weather']['key']
     APIURL = key + '&location=ip&language=zh-Hans&unit=c'
     
     url = host + APIURL
