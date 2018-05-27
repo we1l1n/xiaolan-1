@@ -15,26 +15,27 @@ def setting():
                    'NLP': {            #NLP语义理解服务选择，目前仅支持讯飞
                        'key': '9e1b8f6028b14b969cdec166eca127ea',
                        'appid': '5ace1bbb'
-                   }
+                   },
                    'your_name': '翊闳',
                    'loc': '中山'
-               }
+               },
                'weather': {                     #天气技能，KEY在心知天气获取
                    'key': 'sxyi6ehxblxkqeto'
-               }
+               },
                'tuling': {                      #图灵聊天技能，KEY,USER_ID在www.tuling123.com获取
                    'key': 'c380ed8f2880443c84892ace36ba6bad',
                    'user_id': '167031'
-               }
+               },
                'news': {                        #新闻技能，KEY在阿凡达数据获取
                    'key': 'b8fff66168feb233d5cdb2f7931750f3'
-               }
+               },
                'joke': {                        #说笑话技能，KEY在阿凡达数据获取
                    'key': 'a63ac25e95f741aea51167a05891498c'
-               }
+               },
                'smarthome': {                   #智能家居技能，passwd，url，port在hass上
                    'passwd': 'y20050801',
                    'url': 'http://hassio.local',
                    'port': '8123'
                }
+    }
     return setting
