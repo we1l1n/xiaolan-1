@@ -12,6 +12,10 @@ def setting():
                    # 设置分层第二层
                    'STT': 'Baidu_STT', #STT服务选择，目前仅支持百度
                    'TTS': 'Baiud_TTS', #TTS服务选择，目前仅支持百度
+                   'NLP': {
+                       'key': '',
+                       'appid': ''
+                   }
                    'your_name': '翊闳',
                    'loc': '中山'
                }
