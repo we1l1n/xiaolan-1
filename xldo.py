@@ -21,7 +21,8 @@ import camera
 import snowboytrain
 from smarthome import hass
 
-tok = baidu_tts.get_token()
+bt = baidu_tts()
+tok = bt.get_token()
 setting = setting.setting()
 
 def welcome():
