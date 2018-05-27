@@ -11,6 +11,7 @@ import requests
 import demjson
 import base64
 import hashlib
+import setting
 from recorder import recorder
 from tts import baidu_tts
 from stt import baidu_stt
