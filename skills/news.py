@@ -12,13 +12,15 @@ from stt import baidu_stt
 from tts import baidu_tts
 from recorder import recorder
 import speaker
+import setting
 
 def start(tok):
     
     main(tok)
     
 def main(tok):
-    APPKEY = 'b8fff66168feb233d5cdb2f7931750f3'
+    setting = setting.setting()
+    APPKEY = setting['news']['key']
     url = 'http://v.juhe.cn/toutiao/index?type='
     r = recorder()
     bt = baidu_tts()
