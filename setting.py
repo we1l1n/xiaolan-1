@@ -33,3 +33,4 @@ def setting():
                    'url': 'http://hassio.local',
                    'port': '8123'
                }
+    return setting
