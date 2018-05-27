@@ -20,10 +20,13 @@ import news
 import camera
 import snowboytrain
 from smarthome import hass
-    
-    
-def welcome():
 
+tok = baidu_tts.get_token()
+setting = setting.setting()
+
+def welcome():
+    
+    bt = baidu_tts()
     print ('''
 
     ###################################
@@ -34,7 +37,7 @@ def welcome():
     ###################################
 
     ''')
-    os.system('omxplayer /home/pi/xiaolan/musiclib/welcome.mp3')
+    bt.tts(setting['main_setting']['your_name'] + '，你好啊，我是你的小蓝', tok)
     os.system('pulseaudio --start')
     awaken()
 
@@ -42,14 +45,12 @@ def awaken():
 
     os.system('python /home/pi/xiaolan/snowboy.py')
 
-def convenstation():
+def convenstation(tok):
 
     bs = baidu_stt(1, 2, 3, 4)
     bt = baidu_tts()
     r = recorder()
     s = skills()
-    
-    tok = bt.get_token()
 
     speaker.ding()
     r.record()
@@ -110,7 +111,7 @@ try:
         elif mode == 'awaken':
             awaken()
         elif mode == 'convenstation':
-            convenstation()
+            convenstation(tok)
     else:
         welcome()
 except:
