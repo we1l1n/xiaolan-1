@@ -12,6 +12,7 @@ from stt import baidu_stt
 from tts import baidu_tts
 from recorder import recorder
 import speaker
+import setting
 
 def start(tok):
     
