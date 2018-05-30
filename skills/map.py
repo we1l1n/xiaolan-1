@@ -1,5 +1,6 @@
-# 
-# 地图技能
+# -*- coding: utf-8 -*-
+
+''' 地图技能 '''
 
 import sys
 import os
