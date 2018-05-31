@@ -26,7 +26,15 @@ class map(object):
     def __init__(self):
       
         pass
-      
+    
+    def near(self, place, tok):
+        
+        pass
+    
+    def go_way(self, place_f, place_s, tok):
+        
+        pass
+    
     def main(self, tok):
         
         bt = baidu_tts()
@@ -48,4 +56,16 @@ class map(object):
         
     def choose_command(self, text, tok):
         
-        if 
+        m = map()
+        bt = baidu_tts()
+        bs = baidu_stt(1, 2, 3, 4)
+        r = recorder()
+        if '从' in text and '怎么去' in text:
+            m.go_way(text[0:-7], text[-8:-3], tok)
+        elif '从' in text and '怎么走' in text:
+            m.go_way(text[0:-7], text[-8:-3], tok)
+        elif '附近' in text:
+            m.near(text[0:5], tok)
+        else:
+            bt.tts('对不起，暂时不支持该功能', tok)
+            speaker.speak()
