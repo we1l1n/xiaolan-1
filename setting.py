@@ -6,7 +6,7 @@ import os
 
 
 def setting():
-    setting = {
+    selfset = {
                #设置分层第一层（技能，TTS,STT的设置）
                'main_setting': {
                    # 设置分层第二层
@@ -41,4 +41,4 @@ def setting():
                    'key': 'FRMBZ-IREKF-MA3JI-N32XW-HXUZK-K5FUW'
                }
     }
-    return setting
+    return selfset
