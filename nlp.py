@@ -21,10 +21,11 @@ from music import xlMusic
 import tuling
 
 def get_intent(text):
-
+        
+        selfset = setting.setting()
         urlf = 'http://api.xfyun.cn/v1/aiui/v1/text_semantic?text='
-        appid = setting.setting()['main_setting']['NLP']['appid']
-        apikey = setting.setting()['main_setting']['NLP']['key']
+        appid = selfset['main_setting']['NLP']['appid']
+        apikey = selfset['main_setting']['NLP']['key']
         lastmdl = 'eyJ1c2VyaWQiOiIxMyIsInNjZW5lIjoibWFpbiJ9'
         curtimeo = int(time.time())
         curtimef = str(curtimeo)
