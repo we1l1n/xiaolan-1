@@ -36,6 +36,9 @@ def setting():
                    'passwd': 'y20050801',
                    'url': 'http://hassio.local',
                    'port': '8123'
+               },
+               'map': {                         #地图技能，key在腾讯地图API上申请
+                   'key': 'FRMBZ-IREKF-MA3JI-N32XW-HXUZK-K5FUW'
                }
     }
     return setting
