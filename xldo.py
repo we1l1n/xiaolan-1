@@ -73,7 +73,8 @@ class skills(object):
         pass
 
     def getskills(self, intent, text, tok):
-
+        
+        s = skills()
         if intent == 'clock':
             clock.start(tok)
         elif intent == 'camera':
