@@ -19,9 +19,9 @@ def start(text, tok):
     
 def main(text, tok):
     
-    setting = setting.setting()
-    ak = setting['tuling']['key']
-    ui = setting['tuling']['user_id']
+    selfset = setting.setting()
+    ak = selfset['tuling']['key']
+    ui = selfset['tuling']['user_id']
     url = 'http://openapi.tuling123.com/openapi/api/v2'
     dataf = {
 	      "reqType":0,
