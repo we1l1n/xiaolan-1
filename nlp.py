@@ -18,6 +18,7 @@ from stt import baidu_stt
 sys.path.append('/home/pi/xiaolan/skills')
 from smarthome import hass
 from music import xlMusic
+import tuling
 
 def get_intent(text):
 
