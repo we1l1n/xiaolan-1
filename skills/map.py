@@ -15,6 +15,7 @@ import speaker
 from recorder import recorder
 from stt import baidu_stt
 from tts import baidu_tts
+import setting
 
 def start(tok):
     
@@ -29,11 +30,14 @@ class map(object):
     
     def near(self, place, tok):
         
-        pass
-    
+        setting = setting.setting()
+        citys = requests.get('http://apis.map.qq.com/ws/location/v1/ip')
+        nears = requests.get('http://apis.map.qq.com/ws/place/v1/search?' + 'boundary=region(' + city + ',0)&keyword=' + place + '&page_size=5&page_index=1&orderby=_distance&key=' + setting['map']['key'])
+        
+        
     def go_way(self, place_f, place_s, tok):
         
-        pass
+        
     
     def main(self, tok):
         
