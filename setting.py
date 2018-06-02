@@ -34,7 +34,7 @@ def setting():
                },
                'smarthome': {                   #智能家居技能，passwd，url，port在hass上
                    'passwd': 'y20050801',
-                   'url': 'http://hassio.local',
+                   'url': 'http://192.168.2.121',
                    'port': '8123'
                },
                'map': {                         #地图技能，key在腾讯地图API上申请
