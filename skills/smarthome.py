@@ -72,10 +72,10 @@ class hass(object):
     def e_id(self, tok):
 
         bt = baidu_tts()
-	setting = setting.setting()
-        url = setting['smarthome']['url']
-	port = setting['smarthome']['port']
-	passwd = setting['smarthome']['passwd']
+	selfset = setting.setting()
+        url = selfset['smarthome']['url']
+	port = selfset['smarthome']['port']
+	passwd = selfset['smarthome']['passwd']
 	service = '/api/states'
 	headers = {'x-ha-access': passwd,
           	   'content-type': 'application/json'}
@@ -132,10 +132,10 @@ class hass(object):
         r = recorder()
         h = hass()
         
-        setting = setting.setting()
-        url = setting['smarthome']['url']
-	port = setting['smarthome']['port']
-	passwd = setting['smarthome']['passwd']
+        selfset = setting.setting()
+        url = selfset['smarthome']['url']
+	port = selfset['smarthome']['port']
+	passwd = selfset['smarthome']['passwd']
 	service = '/api/states'
 	headers = {'x-ha-access': passwd,
           	   'content-type': 'application/json'}
@@ -220,10 +220,10 @@ class hass(object):
         r = recorder()
         h = hass()
         
-        setting = setting.setting()
-        url = setting['smarthome']['url']
-	port = setting['smarthome']['port']
-	passwd = setting['smarthome']['passwd']
+        selfset = setting.setting()
+        url = selfset['smarthome']['url']
+	port = selfset['smarthome']['port']
+	passwd = selfset['smarthome']['passwd']
 	service = '/api/states'
 	headers = {'x-ha-access': passwd,
           	   'content-type': 'application/json'}
