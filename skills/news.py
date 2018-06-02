@@ -19,8 +19,8 @@ def start(tok):
     main(tok)
     
 def main(tok):
-    setting = setting.setting()
-    APPKEY = setting['news']['key']
+    setting = selfset.setting()
+    APPKEY = selfset['news']['key']
     url = 'http://v.juhe.cn/toutiao/index?type='
     r = recorder()
     bt = baidu_tts()
