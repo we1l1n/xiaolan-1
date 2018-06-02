@@ -30,7 +30,7 @@ class map(object):
     
     def near(self, place, tok):
         
-        setting = setting.setting()
+        selfset = setting.setting()
         citys = requests.get('http://apis.map.qq.com/ws/location/v1/ip')
         nears = requests.get('http://apis.map.qq.com/ws/place/v1/search?' + 'boundary=region(' + city + ',0)&keyword=' + place + '&page_size=5&page_index=1&orderby=_distance&key=' + setting['map']['key'])
         
