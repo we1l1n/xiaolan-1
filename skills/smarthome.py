@@ -141,19 +141,19 @@ class hass(object):
           	   'content-type': 'application/json'}
 
 	try:
-            e_id = h.e_id(tok)
+            en_id = h.e_id(tok)
             cortolthings = unicode(cortolthings, "utf-8", "ignore")
 
             if cortolmode == 'turn_on':
 
-                if e_id[cortolthings] != None:
+                if en_id[cortolthings] != None:
 
-                    if 'switch' in e_id[cortolthings]:
+                    if 'switch' in en_id[cortolthings]:
 
                         color_name = 'none'
                         service = '/api/services/switch/turn_on'
 
-                    elif 'light' in e_id[cortolthings]:
+                    elif 'light' in en_id[cortolthings]:
 
                         bt.tts('请问要设置什么颜色，可以忽略', tok)
                         speaker.speak()
@@ -166,14 +166,14 @@ class hass(object):
 
             if cortolmode == 'turn_off':
 
-                if e_id[cortolthings] != None:
+                if en_id[cortolthings] != None:
 
-                    if 'switch' in e_id[cortolthings]:
+                    if 'switch' in en_id[cortolthings]:
 
                         color_name = 'none'
                         service = '/api/services/switch/turn_off'
 
-                    elif 'light' in e_id[cortolthings]:
+                    elif 'light' in en_id[cortolthings]:
 
                         color_name = 'none'
                         service = '/api/services/light/turn_off'
@@ -181,12 +181,12 @@ class hass(object):
             if color_name != 'none':
 
                 dataf = {"color_name": color_name,
-                         "entity_id": e_id[cortolthings].encode('utf-8')}
+                         "entity_id": en_id[cortolthings].encode('utf-8')}
 		data = json.dumps(dataf)
 		
 	    else:
 
-                dataf = {"entity_id": e_id[cortolthings].encode('utf-8')}
+                dataf = {"entity_id": en_id[cortolthings].encode('utf-8')}
 		data = json.dumps(dataf)
                 
         except KeyError:
@@ -229,8 +229,8 @@ class hass(object):
           	   'content-type': 'application/json'}
 
         if passwd != None or passwd != '':
-            e_id = h.e_id(tok)
-            service = '/api/states' + e_id[getstatethings]
+            en_id = h.e_id(tok)
+            service = '/api/states' + en_id[getstatethings]
             r = requests.get(url + ':' + port + service,
                              headers=headers)
             if cortolback.status_code == 200 or cortolback.status_code == 201:
