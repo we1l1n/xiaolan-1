@@ -39,6 +39,10 @@ def setting():
                },
                'map': {                         #地图技能，key在腾讯地图API上申请
                    'key': 'FRMBZ-IREKF-MA3JI-N32XW-HXUZK-K5FUW'
+               },
+               'ts': {                          #翻译技能，key，appid在有道智云申请
+                   'appid': '15700209574161b4',
+                   'key': ''
                }
     }
     return selfset
