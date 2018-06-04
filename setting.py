@@ -11,7 +11,15 @@ def setting():
                'main_setting': {
                    # 设置分层第二层
                    'STT': 'Baidu_STT', #STT服务选择，目前仅支持百度
+                   'STT_SET': {        #STT服务配置，AK和SK在百度云申请
+                       'AK': '',
+                       'SK': ''
+                   },
                    'TTS': 'Baiud_TTS', #TTS服务选择，目前仅支持百度
+                   'TTS_SET': {        #TTS服务配置，AK和SK在百度云申请
+                       'AK': '',
+                       'sk': ''
+                   },
                    'NLP': {            #NLP语义理解服务选择，目前仅支持讯飞
                        'key': '9e1b8f6028b14b969cdec166eca127ea',
                        'appid': '5ace1bbb'
@@ -41,8 +49,8 @@ def setting():
                    'key': 'FRMBZ-IREKF-MA3JI-N32XW-HXUZK-K5FUW'
                },
                'ts': {                          #翻译技能，key，appid在有道智云申请
-                   'appid': '15700209574161b4',
-                   'key': ''
+                   'appid': '2b3bd2665750d664',
+                   'key': 'G6E8WI8kqeixpIyQaa2cCmj3sHHsgDm8'
                }
     }
     return selfset
