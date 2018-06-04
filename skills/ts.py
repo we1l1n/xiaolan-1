@@ -1,17 +1,19 @@
 # -*- coding: UTF-8 -*-
 import sys
-import base64
 import requests
 import os
 import json
 import demjson
-import base64
-import hashlib
+import random
+import httplib
+import urllib
+import urllib2
 sys.path.append('/home/pi/xiaolan/')
 import speaker
 from stt import baidu_stt
 from tts import baidu_tts
 from recorder import recorder
+import setting
 
 def start(tok):
     main(tok)
@@ -21,31 +23,52 @@ def main(tok):
     bt = baidu_tts()
     bs = baidu_stt(1, 2, 3, 4)
     r = recorder()
-    m = hashlib.md5()
-    host = 'http://api.fanyi.baidu.com/api/trans/vip/translate'
-    appid = '20180425000150592'
-    apikey = 'gN56Mdv4mh2KJ0Ko2p6v'
     
-    asktext = '请问您要翻译什么？请在滴一声后说出内容，文言文也可以翻译哦！'
-    bt.tts(asktext, tok)
+    appkey = selfset['ts']['appkey']
+    secretkey = selfset['ts']['secretkey']
+    httpClient = None
+    myurl = '/api'
+    q = 'good'
+    
+    bt.tts('请问您要翻译的是什么语言？', tok)
+    speaker.speak()
+    speaker.ding()
+    r.record()
+    speaker.dong()
+    fromLang = lang_choose(bs.stt('./voice.wav', tok), tok)
+    bt.tts('请问您要翻译为什么语言？', tok)
+    speaker.speak()
+    speaker.ding()
+    r.record()
+    speaker.dong()
+    toLang = lang_choose(bs.stt('./voice.wav', tok), tok)
+    bt.tts('请说出您要翻译的内容', tok)
     speaker.speak()
     speaker.ding()
     r.tsrecord()
     speaker.dong()
     tstext = bs.stt('./voice.wav', tok)
     
-    signf = appid + tstext + '1435660288' + apikey
-    m.update(signf)
-    sign = m.hexdigest()
-    data = 'q=' + tstext + '&from=auto&to=zh&appid=' + appid + '&salt=1435660288&sign=' + sign
-    url = host + data
+    salt = random.randint(1, 65536)
+    sign = appKey+q+str(salt)+secretKey
+    m1 = md5.new()
+    m1.update(sign)
+    sign = m1.hexdigest()
+    myurl = myurl + '?appKey=' + appKey + '&q=' + urllib.quote(q) + '&from=' + fromLang + '&to=' + toLang + '&salt=' + str(salt) + '&sign=' + sign
+ 
+    try:
+        httpClient = httplib.HTTPConnection('openapi.youdao.com')
+        httpClient.request('GET', myurl)
+ 
+        #response是HTTPResponse对象
+        response = httpClient.getresponse()
+        print response.read()
+    except Exception, e:
+        print e
+    finally:
+        if httpClient:
+            httpClient.close()
     
-    r = requests(url)
     
-    json = r.json()
-    print json
-    tsback = ['trans_result'][0]['dst']
-    saytext = tsback
-    bt.tts(saytext, tok)
-    speaker.speak()
+    
   
