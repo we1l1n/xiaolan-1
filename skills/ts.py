@@ -24,7 +24,7 @@ def main(tok):
     bs = baidu_stt(1, 2, 3, 4)
     r = recorder()
     
-    appkey = selfset['ts']['appkey']
+    appKey = selfset['ts']['appkey']
     secretkey = selfset['ts']['secretkey']
     httpClient = None
     myurl = '/api'
@@ -62,7 +62,13 @@ def main(tok):
  
         #response是HTTPResponse对象
         response = httpClient.getresponse()
-        print response.read()
+        json = json.loads(response.read())
+        try:
+            bt.tts('第一种意思为，' + json['translation'][0] + '，第二种意思为，' + json['translation'][1], tok)
+            speaker.speak()
+        except:
+            bt.tts('翻译结果为' + json['translation'][0], tok)
+            speaker.speak()
     except Exception, e:
         print e
     finally:
