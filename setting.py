@@ -11,14 +11,18 @@ def setting():
                'main_setting': {
                    # 设置分层第二层
                    'STT': 'Baidu_STT', #STT服务选择，目前仅支持百度
-                   'STT_SET': {        #STT服务配置，AK和SK在百度云申请
+                   'BAIDU_STT_SET': {        #百度STT服务配置，AK和SK在百度云申请
                        'AK': '',
                        'SK': ''
                    },
-                   'TTS': 'Baiud_TTS', #TTS服务选择，目前仅支持百度
-                   'TTS_SET': {        #TTS服务配置，AK和SK在百度云申请
+                   'TTS': 'Baiud_TTS', #TTS服务选择，目前支持百度和有道智云
+                   'BAIDU_TTS_SET': {        #百度TTS服务配置，AK和SK在百度云申请
                        'AK': '',
                        'sk': ''
+                   },
+                   'YOUDAO_TTS_SET': {       #有道STT服务配置，appid和appkey在有道智云申请
+                       'appid': '2b3bd2665750d664',
+                       'appkey': 'G6E8WI8kqeixpIyQaa2cCmj3sHHsgDm8'
                    },
                    'NLP': {            #NLP语义理解服务选择，目前仅支持讯飞
                        'key': '9e1b8f6028b14b969cdec166eca127ea',
