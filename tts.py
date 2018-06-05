@@ -89,15 +89,12 @@ class youdao_tts(object):
         data['salt'] = salt
         data['sign'] = sign
         data['langType'] = lang
-        response = requests.post(ttsUrl,data=data)
-        return response
+        response = requests.post('http://openapi.youdao.com/ttsapi',data=data)
 
-        response = tts(appKey,"have a good day",appSecret,"en")
         contentType = response.headers['content-type']
         # 如果响应的是mp3，则保存，否则打印
         if contentType == "audio/mp3":
-            millis = int(round(time.time() * 1000))
-            filePath = "D:/" + str(millis) + ".mp3"
+            filePath = "/home/pi/xiaolan/musiclib/" + 'say' + ".mp3"
             fo = open(filePath,'wb')
             fo.write(response.content)
             fo.close()
