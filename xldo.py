@@ -5,9 +5,10 @@ import sys
 import os
 from stt import baidu_stt
 from tts import baidu_tts
+from tts import youdao_tts
 from recorder import recorder
 import speaker
-import nlp
+import nlu
 import setting
 sys.path.append('/home/pi/xiaolan/skills/')
 import clock
