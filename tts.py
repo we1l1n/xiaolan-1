@@ -74,8 +74,8 @@ class youdao_tts(object):
         
         y = youdao_tts()
         selfset = setting.setting()
-        appSecret = selfset['YOUDAO_TTS']['appkey']
-        appKey = selfset['YOUDAO_TTS']['appid']
+        appSecret = selfset['YOUDAO_TTS_SET']['appkey']
+        appKey = selfset['YOUDAO_TTS_SET']['appid']
         data = {}
         salt = random.randint(1, 65536)
 
