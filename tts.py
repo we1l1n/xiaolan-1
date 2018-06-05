@@ -25,8 +25,8 @@ class baidu_tts(object):
     def get_token(self):
         
         selfset = setting.setting()
-        AK = selfset['BAIDU_TTS_SET']['AK']
-        SK = selfset['BAIDU_TTS_SET']['SK']
+        AK = selfset['main_setting']['BAIDU_TTS_SET']['AK']
+        SK = selfset['main_setting']['BAIDU_TTS_SET']['SK']
         URL = 'http://openapi.baidu.com/oauth/2.0/token'
         
         params = urllib.urlencode({'grant_type': 'client_credentials',
@@ -74,8 +74,8 @@ class youdao_tts(object):
         
         y = youdao_tts()
         selfset = setting.setting()
-        appSecret = selfset['YOUDAO_TTS_SET']['appkey']
-        appKey = selfset['YOUDAO_TTS_SET']['appid']
+        appSecret = selfset['main_setting']['YOUDAO_TTS_SET']['appkey']
+        appKey = selfset['main_setting']['YOUDAO_TTS_SET']['appid']
         data = {}
         salt = random.randint(1, 65536)
 
