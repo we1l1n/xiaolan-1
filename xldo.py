@@ -62,10 +62,6 @@ def convenstation(tok):
     intent = nlp.get_intent(text)
     s.getskills(intent, text, tok)
 
-def sconvenstation():
-
-    speaker.speacilrecorder()
-
 class skills(object):
 
     def __init__(self):
@@ -85,25 +81,14 @@ class skills(object):
             weather.start(tok)
         elif intent == 'music':
             music.start(tok)
-        elif intent == 'mail':
+        elif intent == 'email':
             mail.start(tok)
         elif intent == 'joke':
             joke.start(tok)
         elif intent == 'news':
             news.start(tok)
-        elif intent == 'tuling':
-            tuling.start(text, tok)
-        elif intent == 'snowboytrain':
-            snowboytrain.start(tok)
-        elif intent == 'raspberrypi-gpio':
-            raspberrypigpio.start(tok)
-        elif intent == 'respeaker':
-            speaker.speak()
-        elif intent == 'no':
-            sconvenstation()
         elif intent == 'reintent':
-            intent = nlp.do_intent(text, tok)
-            s.getskills(intent, text, tok)
+            nlp.do_intent(text, tok)
 
 try:
     
