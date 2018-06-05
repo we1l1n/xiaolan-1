@@ -12,6 +12,7 @@ import demjson
 import base64
 import urllib
 import urllib2
+import setting
 
 domian = 'a'
 
@@ -23,8 +24,10 @@ class baidu_stt(object):
         self.transcribed = transcribed
 
     def get_token(self): #获取token
-        AK = '87oa8ZdtoVLSuVwV4YPqaeD3'
-        SK = 'wi8G8UEa1tkgAKZbKsUHaZk8V6p4NxvL'
+        
+        selfset = setting.setting()
+        AK = selfset['main_setting']['BAIDU_STT_SET']['AK']
+        SK = selfset['main_setting']['BAIDU_STT_SET']['SK']
         url = 'http://openapi.baidu.com/oauth/2.0/token'
         params = urllib.urlencode({'grant_type': 'client_credentials',
                                    'client_id': AK,
