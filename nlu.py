@@ -15,10 +15,18 @@ import setting
 from recorder import recorder
 from tts import baidu_tts
 from stt import baidu_stt
-sys.path.append('/home/pi/xiaolan/skills')
-from smarthome import hass
-from music import xlMusic
+sys.path.append('/home/pi/xiaolan/skills/')
+import clock
+import weather
+import music
+import mail
 import tuling
+import joke
+import news
+import maps
+import camera
+import snowboytrain
+from smarthome import hass
 
 def get_intent(text):
         
@@ -71,8 +79,7 @@ def do_intent(text, tok):
     
     if text!= None:
         if '闹钟' in text:
-                intent = 'clock'
-                return intent
+                clock.start(tok)
         elif '打开' in text:
                 cortolthings = text[6:-2]
                 print cortolthings
@@ -83,50 +90,33 @@ def do_intent(text, tok):
                 cortolmode = 'turn_off'
                 sm.cortol(cortolmode, cortolthings, tok)
         elif '天气' in text:
-                intent = 'weather'
-                return intent
+                weather.main(tok)
         elif '重新说' in text or '重复' in text:
-                intent = 'respeaker'
-                return intent
+                speaker.speak()
         elif '翻译' in text:
-                intent = 'translate'
-                return intent
+                ts.main(tok)
         elif '搜索' in text:
-                intent = 'ser'
-                return intent
+                tuling.main(text, tok)
         elif '闲聊' in text:
-                intent = 'tuling'
-                return intent
+                tuling.main(text, tok)
         elif '怎么走' in text:
-                intent = 'map'
-                return intent
+                maps.start(tok)
         elif '酒店' in text:
-                intent = 'hotel'
-                return intent
+                tuling.main(text, tok)
         elif '旅游' in text:
-                intent = 'travel'
-                return intent
-        elif '做游戏' in text:
-                intent = 'minigame'
-                return intent
+                tuling.main(text, tok)
         elif '新闻' in text:
-                intent = 'news'
-                return intent
+                news.start(tok)
         elif '拍照' in text:
-                intent = 'camera'
-                return intent
+                camera.start(tok)
         elif '邮件' in text or '邮件助手' in text:
-                intent = 'mail'
-                return intent
+                mail.start(tok)
         elif '快递' in text:
-                intent = 'experss'
-                return intent
+                experss.start(tok)
         elif '笑话' in text:
-                intent = 'joke'
-                return intent
+                joke.main(tok)
         elif '训练' in text:
-                intent= 'snowboytrain'
-                return intent
+                snowboytrain.start(tok)
         elif '播放' in text:
             if '音乐' in text:
                 m.sui_ji(services, tok)
@@ -140,11 +130,9 @@ def do_intent(text, tok):
                 songname = text[3:-1]
                 m.sou_suo(services, songname, tok)
         else:
-                intent = 'tuling'
-                return intent
+                tuling.start(text, tok)
     else:
-        intent = 'no'
-        return intent
+        speaker.specialrecorder()
 
 
     
