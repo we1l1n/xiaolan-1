@@ -49,7 +49,7 @@ def main(tok):
     bt = baidu_tts()
     bs = baidu_stt(1, 2, 3, 4)
     r = recorder()
-    y = youdao_tts()
+    youdao = youdao_tts()
     
     appKey = selfset['ts']['appkey']
     secretkey = selfset['ts']['secretkey']
@@ -91,10 +91,10 @@ def main(tok):
         response = httpClient.getresponse()
         json = json.loads(response.read())
         try:
-            bt.tts('第一种意思为，' + json['translation'][0] + '，第二种意思为，' + json['translation'][1], tok)
+            youdao.tts('第一种意思为，' + json['translation'][0] + '，第二种意思为，' + json['translation'][1], toLang)
             speaker.speak()
         except:
-            bt.tts('翻译结果为' + json['translation'][0], tok)
+            youdao.tts('翻译结果为' + json['translation'][0], toLang)
             speaker.speak()
     except Exception, e:
         print e
