@@ -25,8 +25,8 @@ class baidu_tts(object):
     def get_token(self):
         
         selfset = setting.setting()
-        AK = 'M9jz0511Yfbb15d1BshqtC5g'
-        SK = 'Z73I2jvytEa8QydGnNlP3oOKfudIlvgE'
+        AK = selfset['BAIDU_TTS_SET']['AK']
+        SK = selfset['BAIDU_TTS_SET']['SK']
         URL = 'http://openapi.baidu.com/oauth/2.0/token'
         
         params = urllib.urlencode({'grant_type': 'client_credentials',
