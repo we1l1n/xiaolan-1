@@ -10,12 +10,12 @@ def setting():
                #设置分层第一层（技能，TTS,STT的设置）
                'main_setting': {
                    # 设置分层第二层
-                   'STT': 'Baidu_STT', #STT服务选择，目前仅支持百度
+                   'STT': 'baidu_stt', #STT服务选择，目前仅支持百度
                    'BAIDU_STT_SET': {        #百度STT服务配置，AK和SK在百度云申请
-                       'AK': '',
-                       'SK': ''
+                       'AK': '87oa8ZdtoVLSuVwV4YPqaeD3',
+                       'SK': 'wi8G8UEa1tkgAKZbKsUHaZk8V6p4NxvL'
                    },
-                   'TTS': 'Baiud_TTS', #TTS服务选择，目前支持百度和有道智云
+                   'TTS': 'baiud_tts', #TTS服务选择，目前支持百度(baidu_tts)和有道智云(youdao_tts)
                    'BAIDU_TTS_SET': {        #百度TTS服务配置，AK和SK在百度云申请
                        'AK': 'M9jz0511Yfbb15d1BshqtC5g',
                        'SK': 'Z73I2jvytEa8QydGnNlP3oOKfudIlvgE'
