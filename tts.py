@@ -12,6 +12,8 @@ import shutil
 import urllib2
 import urllib
 import base64
+import md5
+import random
 import tempfile
 from urllib import quote
 import setting
@@ -89,10 +91,11 @@ class youdao_tts(object):
         data['salt'] = salt
         data['sign'] = sign
         data['langType'] = lang
-        response = requests.post('http://openapi.youdao.com/ttsapi',data=data)
+        response = requests.post('http://openapi.youdao.com/ttsapi',
+                                 data=data)
 
         contentType = response.headers['content-type']
-        # 如果响应的是mp3，则保存，否则打印
+        
         if contentType == "audio/mp3":
             filePath = "/home/pi/xiaolan/musiclib/" + 'say' + ".mp3"
             fo = open(filePath,'wb')
