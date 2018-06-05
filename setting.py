@@ -17,8 +17,8 @@ def setting():
                    },
                    'TTS': 'Baiud_TTS', #TTS服务选择，目前支持百度和有道智云
                    'BAIDU_TTS_SET': {        #百度TTS服务配置，AK和SK在百度云申请
-                       'AK': '',
-                       'sk': ''
+                       'AK': 'M9jz0511Yfbb15d1BshqtC5g',
+                       'SK': 'Z73I2jvytEa8QydGnNlP3oOKfudIlvgE'
                    },
                    'YOUDAO_TTS_SET': {       #有道STT服务配置，appid和appkey在有道智云申请
                        'appid': '2b3bd2665750d664',
