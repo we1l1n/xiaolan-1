@@ -132,7 +132,7 @@ def do_intent(text, tok):
         else:
                 tuling.start(text, tok)
     else:
-        speaker.specialrecorder()
+        speaker.speacilrecorder()
 
 
     
