@@ -12,17 +12,44 @@ sys.path.append('/home/pi/xiaolan/')
 import speaker
 from stt import baidu_stt
 from tts import baidu_tts
+from tts import youdao_tts
 from recorder import recorder
 import setting
 
 def start(tok):
+    
     main(tok)
-  
+
+def lang_choose(text, tok):
+    
+    if '英语' in text or '英文' in text:
+        lang = 'en'
+    elif '法语' in text or '法文' in text:
+        lang = 'fr'
+    elif '中文' in text or '简体中文' in text:
+        lang = 'zh-CHS'
+    elif '俄语' in text or '俄文' in text:
+        lang = 'ru'
+    elif '韩语' in text or '韩文' in text:
+        lang = 'ko'
+    elif '日语' in text or '日文' in text:
+        lang = 'ja'
+    elif '葡萄牙文' in text or '葡萄牙语' in text:
+        lang = 'pt'
+    elif '西班牙文' in text or '西班牙语' in text:
+        lang = 'es'
+    elif '越南语' in text or '越南文' in text:
+        lang = 'vi'
+    else:
+        lang = 'en'
+    return lang
+    
 def main(tok):
     
     bt = baidu_tts()
     bs = baidu_stt(1, 2, 3, 4)
     r = recorder()
+    y = youdao_tts()
     
     appKey = selfset['ts']['appkey']
     secretkey = selfset['ts']['secretkey']
