@@ -51,12 +51,12 @@ def number_choose(text, tok):
                 text[base] = 0
             base = base + 1
     except KeyError:
-        return text
+        return str(text)
     except TypeError:
         bt.tts('对不起，快递单号读取错误', tok)
         speaker.speak()
     else:
-        return text
+        return str(text)
         
     
 def main(tok):
