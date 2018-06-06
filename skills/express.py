@@ -72,7 +72,7 @@ def main(tok):
     bt.tts('您好，请说出您要查询的快递单号', tok)
     speaker.speak()
     speaker.ding()
-    r.record()
+    r.exrecord()
     speaker.dong()
     
     requestData = {
