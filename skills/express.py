@@ -69,7 +69,7 @@ def main(tok):
     selfset = setting.setting()
     hash = hashlib.md5()
     
-    bt.tts('您好，请说出您的快递单号', tok)
+    bt.tts('您好，请说出您要查询的快递单号', tok)
     speaker.speak()
     speaker.ding()
     r.record()
