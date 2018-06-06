@@ -56,7 +56,7 @@ def setting():
                    'appid': '2b3bd2665750d664',
                    'key': 'G6E8WI8kqeixpIyQaa2cCmj3sHHsgDm8'
                },
-               'express': {
+               'express': {                     #快递查询技能，key，EBusinessID在快递鸟申请
                    'key': '1f0c5c35-67a8-495f-b3ab-a7fc534a826f',
                    'EBusinessID': '1349773',
                }
