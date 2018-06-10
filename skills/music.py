@@ -30,7 +30,7 @@ class xlMusic(object):
         elif '搜索播放' in commands or '搜索' in commands:
             try:
                 m.sou_suo(services, commands[-1:-4], tok)
-             except KeyError:
+            except KeyError:
                 m.sou_suo(services, '', tok)
         elif '歌名' in commands or '这首歌叫什么' in commands:
             command = 'song_name_q'
