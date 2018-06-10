@@ -26,6 +26,7 @@ import news
 import maps
 import camera
 import snowboytrain
+import express
 from smarthome import hass
 
 def get_intent(text):
@@ -114,7 +115,7 @@ def do_intent(text, tok):
         elif '邮件' in text or '邮件助手' in text:
                 mail.start(tok)
         elif '快递' in text:
-                experss.start(tok)
+                express.start(tok)
         elif '笑话' in text:
                 joke.main(tok)
         elif '训练' in text:
