@@ -17,8 +17,22 @@ class sb(object):
     def start(self):
 
         detector = snowboydecoder.HotwordDetector("/home/pi/xiaolan/snowboy/Alexa.pmdl", sensitivity=0.5, audio_gain=1)
-        detector.start(detected_callback)
+        detector.start(convenstation)
 
+def convenstation():
+
+    bs = baidu_stt(1, 2, 3, 4)
+    bt = baidu_tts()
+    r = recorder()
+
+    speaker.ding()
+    r.record()
+    speaker.dong()
+    text = bs.stt('./voice.wav', tok)
+    if text == None:
+        speaker.speacilrecorder()
+    else:
+        return [nlu.get_intent(text, tok), text]
 
 
     
