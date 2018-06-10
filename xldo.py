@@ -27,14 +27,6 @@ from music import xlMusic
 
 bt = baidu_tts()
 tok = bt.get_token()
-try:
-    if sys.argv[0] == 'unawaken':
-        convenstation(tok)
-    else:
-        welcome(tok)
-except:
-    welcome(tok)
-
 
 def welcome(tok):
     
@@ -54,6 +46,17 @@ def welcome(tok):
     speaker.speak()
     os.system('pulseaudio --start')
     awaken()
+    
+try:
+    if sys.argv[0] == 'unawaken':
+        convenstation(tok)
+    else:
+        welcome(tok)
+except:
+    welcome(tok)
+
+
+
 
 def awaken():
     
