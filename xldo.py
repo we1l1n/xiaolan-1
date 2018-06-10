@@ -60,7 +60,7 @@ def convenstation(tok):
     speaker.dong()
     text = bs.stt('./voice.wav', tok)
     
-    intent = nlp.get_intent(text)
+    intent = nlu.get_intent(text)
     s.getskills(intent, text, tok)
 
 class skills(object):
@@ -89,7 +89,7 @@ class skills(object):
         elif intent == 'news':
             news.start(tok)
         elif intent == 'reintent':
-            nlp.do_intent(text, tok)
+            nlu.do_intent(text, tok)
 
 try:
     
