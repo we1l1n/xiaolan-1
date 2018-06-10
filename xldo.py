@@ -98,6 +98,8 @@ class skills(object):
             express.start(tok)
         elif intent == 'reintent':
             nlu.do_intent(text, tok)
+        else:
+            nlu.do_intent(text, tok)
 
 try:
     
