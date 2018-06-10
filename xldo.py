@@ -10,7 +10,6 @@ from recorder import recorder
 import speaker
 import nlu
 import setting
-from snowboy import sb
 sys.path.append('/home/pi/xiaolan/skills/')
 import clock
 import weather
@@ -28,8 +27,18 @@ from music import xlMusic
 
 bt = baidu_tts()
 tok = bt.get_token()
-setting = setting.setting()
-print ('''
+try:
+    if sys.argv[0] == 'unawaken':
+        convenstation(tok)
+    else:
+        welcome(tok)
+except:
+    welcome(tok)
+
+
+def welcome(tok):
+    
+    print ('''
 
     ###################################
     #     小蓝-中文智能家居对话机器人      #
@@ -39,16 +48,18 @@ print ('''
     ###################################
 
     ''')
-bt.tts(setting['main_setting']['your_name'] + '，你好啊，我是你的小蓝', tok)
-speaker.speak()
-os.system('pulseaudio --start')
-awaken(tok)
+    bt = baidu_tts()
+    selfset = setting.setting()
+    bt.tts(setting['main_setting']['your_name'] + '，你好啊，我是你的小蓝', tok)
+    speaker.speak()
+    os.system('pulseaudio --start')
+    awaken()
 
-def awaken(tok):
+def awaken():
     
     os.system('python /home/pi/xiaolan/snowboy.py')
     
-def convenstation():
+def convenstation(tok):
 
     bs = baidu_stt(1, 2, 3, 4)
     bt = baidu_tts()
@@ -101,4 +112,3 @@ class skills(object):
             speaker.speacilrecorder()
         else:
             nlu.do_intent(text, tok)
-
