@@ -52,7 +52,7 @@ def welcome(tok):
     awaken()
     
 try:
-    if sys.argv[0] == 'unawaken':
+    if sys.argv[1] == 'unawaken':
         convenstation(tok)
     else:
         welcome(tok)
