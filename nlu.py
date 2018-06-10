@@ -32,8 +32,8 @@ def get_intent(text):
         
         selfset = setting.setting()
         urlf = 'http://api.xfyun.cn/v1/aiui/v1/text_semantic?text='
-        appid = selfset['main_setting']['NLP']['appid']
-        apikey = selfset['main_setting']['NLP']['key']
+        appid = selfset['main_setting']['NLU']['appid']
+        apikey = selfset['main_setting']['NLU']['key']
         lastmdl = 'eyJ1c2VyaWQiOiIxMyIsInNjZW5lIjoibWFpbiJ9'
         curtimeo = int(time.time())
         curtimef = str(curtimeo)
@@ -81,14 +81,16 @@ def do_intent(text, tok):
         if '闹钟' in text:
                 clock.start(tok)
         elif '打开' in text:
-                cortolthings = text[6:-2]
-                print cortolthings
-                cortolmode = 'turn_on'
-                sm.cortol(cortolmode, cortolthings, tok)
+                sm.cortol('turn_on', text[6:-2], tok)
         elif '关闭' in text:
-                cortolthings = text[6:-2]
-                cortolmode = 'turn_off'
-                sm.cortol(cortolmode, cortolthings, tok)
+                sm.cortol('turn_off', text[6:-2], tok)
+        elif '获取' in text:
+                if '传感器' in text or '温度' in text:
+                        sm.sensor('sensor', text[6:-2], tok)
+                elif '湿度' in text:
+                        sm.sensor('sensor', text[6:-2], tok)
+                else:
+                        sm.sensor('switch', text[6:-2], tok)
         elif '天气' in text:
                 weather.main(tok)
         elif '重新说' in text or '重复' in text:
