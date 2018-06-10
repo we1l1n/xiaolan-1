@@ -69,7 +69,7 @@ def convenstation(tok):
     speaker.ding()
     r.record()
     speaker.dong()
-    text = bs.stt('./voice.wav', tok)
+    text = bs.stt('./voice.wav', tok).Remove(str.Length-1)
     if text == None:
         speaker.speacilrecorder()
     else:
