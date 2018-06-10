@@ -50,37 +50,42 @@ class hass(object):
 	else:
             pass
 	#print commands[6:-2]
-        command = hass.choose_command(commands)
+        hass.choose_command(commands)
         
-        if command == 'turn_on':
+    def choose_command(text):
+	h = hass()
+        if '打开' in text or '开启' in text:
             
-            h.cortol('turn_on', commands[6:-2], tok)
+            h.cortol('turn_on', text[6:-2], tok)
 
-        elif command == 'turn_off':
+        elif '关闭' in text or '关掉' in text:
 
-            h.cortol('turn_off', commands[6:-2], tok)
+            h.cortol('turn_off', text[6:-2], tok)
         
-        elif command == 'get_sensor':
+        elif '获取' in text:
 
             if '传感器' in command:
                 getstatemode = 'sensor'
             else:
                 getstatemode = 'switch'
-            h.sensor(getstatemode, commands[6:-3], tok)
-
+            h.sensor(getstatemode, text[6:-3], tok)
+	elif '怎么样' in text:
+	    if '传感器' in command:
+                getstatemode = 'sensor'
+            else:
+                getstatemode = 'switch'
+            print text[9:-3]
+            h.sensor(getstatemode, text[9:-3], tok)
 
     def e_id(self, tok):
 
         bt = baidu_tts()
 	selfset = setting.setting()
-        url = selfset['smarthome']['url']
-	port = selfset['smarthome']['port']
-	passwd = selfset['smarthome']['passwd']
 	service = '/api/states'
-	headers = {'x-ha-access': passwd,
+	headers = {'x-ha-access': selfset['smarthome']['passwd'],
           	   'content-type': 'application/json'}
 		
-	r = requests.get(url + ':' + port + service,
+	r = requests.get(selfset['smarthome']['url'] + ':' + selfset['smarthome']['port'] + service,
 			 headers=headers)
 		
 	r_json = r.json()
@@ -122,7 +127,7 @@ class hass(object):
 		c = 'white'
 		return c
 	else:
-		c = 'a'
+		c = 'none'
 		return c
 
     def cortol(self, cortolmode, cortolthings, tok):
@@ -133,11 +138,8 @@ class hass(object):
         h = hass()
         
         selfset = setting.setting()
-        url = selfset['smarthome']['url']
-	port = selfset['smarthome']['port']
-	passwd = selfset['smarthome']['passwd']
 	service = '/api/states'
-	headers = {'x-ha-access': passwd,
+	headers = {'x-ha-access': selfset['smarthome']['passwd'],
           	   'content-type': 'application/json'}
 
 	try:
@@ -145,7 +147,7 @@ class hass(object):
             cortolthings = unicode(cortolthings, "utf-8", "ignore")
 
             if cortolmode == 'turn_on':
-
+	    
                 if en_id[cortolthings] != None:
 
                     if 'switch' in en_id[cortolthings]:
@@ -161,10 +163,10 @@ class hass(object):
                         r.record()
                         speaker.dong()
                         text = bs.stt('./voice.wav', tok)
-                        color_name = h.choose_color(text)
+                        color_name = h.choose_color(text) 
                         service = '/api/services/light/turn_on'
 
-            if cortolmode == 'turn_off':
+            elif cortolmode == 'turn_off':
 
                 if en_id[cortolthings] != None:
 
@@ -202,7 +204,7 @@ class hass(object):
 	else:
 
             #print data
-            r = requests.post(url + ':' + port + services,
+            r = requests.post(selfset['smarthome']['url'] + ':' + selfset['smarthome']['port'] + services,
                               headers=headers,
                               data=data)
             if cortolback.status_code == 200 or cortolback.status_code == 201:
@@ -221,17 +223,14 @@ class hass(object):
         h = hass()
         
         selfset = setting.setting()
-        url = selfset['smarthome']['url']
-	port = selfset['smarthome']['port']
-	passwd = selfset['smarthome']['passwd']
 	service = '/api/states'
-	headers = {'x-ha-access': passwd,
+	headers = {'x-ha-access': selfset['smarthome']['passwd'],
           	   'content-type': 'application/json'}
 
         if passwd != None or passwd != '':
             en_id = h.e_id(tok)
             service = '/api/states' + en_id[getstatethings]
-            r = requests.get(url + ':' + port + service,
+            r = requests.get(selfset['smarthome']['url'] + ':' + selfset['smarthome']['port'] + service,
                              headers=headers)
             if cortolback.status_code == 200 or cortolback.status_code == 201:
                 json = r.json()
