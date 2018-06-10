@@ -29,7 +29,7 @@ import snowboytrain
 import express
 from smarthome import hass
 
-def get_intent(text):
+def get_intent(text, tok):
         
         selfset = setting.setting()
         urlf = 'http://api.xfyun.cn/v1/aiui/v1/text_semantic?text='
@@ -62,15 +62,13 @@ def get_intent(text):
         try:
                 intent = json['data']['service']
         except KeyError:
-                intent = 'reintent'
-                return intent
+                return 'reintent'
         except TypeError:
-                intent = 'reintent'
-                return intent
+                return 'reintent'
         if intent != None:
                 return intent
         else:
-                do_intent(text)
+                do_intent(text, tok)
 
 def do_intent(text, tok):
 
