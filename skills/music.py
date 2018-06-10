@@ -26,20 +26,26 @@ class xlMusic(object):
     def command_choose(self, commands, tok):
         
         if '随机播放' in commands or '随机' in commands:
-            command = 'sui_ji'
-            return command
+            m.sui_ji(services, tok)
         elif '搜索播放' in commands or '搜索' in commands:
-            command = 'sou_suo'
-            return command
+            try:
+                m.sou_suo(services, commands[-1:-4], tok)
+             except KeyError:
+                m.sou_suo(services, '', tok)
         elif '歌名' in commands or '这首歌叫什么' in commands:
             command = 'song_name_q'
             return command
         elif '退出' in commands:
-            command = 'exit'
-            return command
+            bt.tts('谢谢使用，下次再见', tok)
+            speaker.speak()
+            try:
+                
+            except SystemExit:
+                os.system('python /home/pi/xiaolan/snowboy.py')
         else:
-            command = 're'
-            return command
+            bt.tts('对不起，我没有听清楚您说了什么？', tok)
+            speaker.speak()
+            m.main(tok)
     
     def paly(self, song_name, tok):
         
@@ -55,21 +61,7 @@ class xlMusic(object):
             speaker.ding()
             r.record()
             speaker.dong()
-            commands = bs.stt('./voice.wav', tok)
-            command = m.command_choose(commands, tok)
-            if command == 'sui_ji':
-                m.sui_ji(services, tok)
-            elif command == 'sou_suo':
-                m.sou_suo(services, tok)
-            elif command == 'exit':
-                bt.tts('谢谢使用，下次再见', tok)
-                speaker.speak()
-                os.system('python /home/pi/xiaolan/snowboy.py')
-                break
-            elif command == 're':
-                bt.tts('对不起，我没有听清楚您说了什么？', tok)
-                speaker.speak()
-                m.main(tok)
+            m.command_choose(bs.stt('./voice.wav', tok), tok)
         else:
             bt.tts('对不起，发生了故障', tok)
             speaker.speak()
@@ -99,7 +91,7 @@ class xlMusic(object):
                 try:
                     id = get_song_id_j['song'][0]['songid']
                 except KeyError:
-                    bt.tts('对不起，播放错误')
+                    bt.tts('对不起，歌曲获取失败')
                     speaker.speak()
                 else:
                     pass
@@ -108,8 +100,7 @@ class xlMusic(object):
                 get_song_url_j = get_song_url_rawj.json()
                 
                 song_name = get_song_url_j['songinfo']['title']
-                song_url_f = get_song_url_j['bitrate']['file_link']
-                song_url = (song_url_f.replace('\', '''))
+                song_url = (get_song_url_j['bitrate']['file_link'].replace('\', '''))
                 
                 download = requests.get(song_url)
                 with open("/home/pi/xiaolan/musiclib/music.mp3", "wb") as code:
@@ -126,43 +117,18 @@ class xlMusic(object):
         
         url = 'http://tingapi.ting.baidu.com/v1/restserver/ting?'
         song_name_c = random.uniform(0, 12)
-        if song_name_c == 0:
-            song_name = '皮皮虾我们走'
-        elif song_name_c == 1:
-            song_name = 'I hope you think of me'
-        elif song_name_c == 2:
-            song_name = '小幸运'
-        elif song_name_c == 3:
-            song_name = '全部都是你'
-        elif song_name_c == 4:
-            song_name = '佛系少女'
-        elif song_name_c == 5:
-            song_name = 'Something just like this'
-        elif song_name_c == 6:
-            song_name = 'Feel this Moment'
-        elif song_name_c == 7:
-            song_name = 'Welcome to NewYork'
-        elif song_name_c == 8:
-            song_name = '洛天依投食歌'
-        elif song_name_c == 9:
-            song_name = '带你去旅行'
-        elif song_name_c == 10:
-            song_name = '死机之歌'
-        elif song_name_c == 11:
-            song_name = 'Shape of You'
-        elif song_name_c == 12:
-            song_name = 'Kiss Fight'
-        elif song_name_c == 13:
-            song_name = 'Hot song'
-        
-        if song_name != 'Hot song':
-            get_song_id_rawj = requests.get(url + services['search'] + song_name)
-        elif song_name == 'Hot song':
+        song_name_s = ['皮皮虾我们走','I hope you think of me','小幸运','全部都是你','佛系少女','Something just like this',
+                       'Feel this Moment','Welcome to NewYork','洛天依投食歌','带你去旅行','死机之歌','Shape of You','Kiss Fight',
+                       'Hot song']
+
+        if song_name_s[random.uniform(0, 12)] != 'Hot song':
+            get_song_id_rawj = requests.get(url + services['search'] + song_name_c)
+        else:
             get_song_id_rawj = requests.get(url + services['hot'])
         get_song_id_j = get_song_id_rawj.json()
         
         try:
-            if song_name == 'Hot song':
+            if song_name_s[random.uniform(0, 12)] == 'Hot song':
                 id = get_song_id_j['result']['list'][song_name_c]['song_id']
             else:
                 id = get_song_id_j['song'][song_name_c]['songid']
@@ -199,14 +165,12 @@ class xlMusic(object):
         r = recorder()
         m = xlMusic()
         
-        welcome = '欢迎使用小蓝音乐播放器，云服务使用百度音乐'
-        ask = '请问您要随机播放还是搜索播放？'
         url = 'http://tingapi.ting.baidu.com/v1/restserver/ting?'
         services = {'musicurl_get': 'method=baidu.ting.song.play&songid=', 'search': 'method=baidu.ting.search.catalogSug&query=', 'hot': 'method=baidu.ting.song.getRecommandSongList&song_id=877578&num=12'}
         
-        bt.tts(welcome, tok)
+        bt.tts('欢迎使用小蓝音乐播放器，云服务使用百度音乐', tok)
         speaker.speak()
-        bt.tts(ask, tok)
+        bt.tts('请问您要随机播放还是搜索播放？', tok)
         speaker.speak()
         speaker.ding()
         r.record()
@@ -214,22 +178,11 @@ class xlMusic(object):
         
         try:
             commands = bs.stt('./voice.wav', tok)
+            m.command_choose(commands, tok)
         except TypeError:
             speaker.speak()
             speaker.ding()
             r.record()
             speaker.dong()
-            command = m.command_choose(commands, tok)
-        else:
-            if command == 'sui_ji':
-                m.sui_ji(services, tok)
-            elif command == 'sou_suo':
-                m.sou_suo(services, tok)
-            elif command == 'exit':
-                bt.tts('谢谢使用，下次再见', tok)
-                speaker.speak()
-            elif command == 're':
-                bt.tts('对不起，我没有听清楚您说了什么？', tok)
-                speaker.speak()
-                m.main(tok)
+            m.command_choose(commands, tok)
                 
