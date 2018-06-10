@@ -29,6 +29,4 @@ def main(tok):
     json = r.json()
     
     bt.tts(json['result'][random.randint(0,9)]['content'], tok)
-    
-    
     speaker.speak()
