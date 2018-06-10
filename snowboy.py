@@ -2,7 +2,12 @@
 import sys
 import os
 import pyaudio
-import c
+from tts import baidu_tts
+from tts import youdao_tts
+from stt import baidu_stt
+import nlu
+import speaker
+from recorder import recorder
 sys.path.append('/home/pi/xiaolan/snowboy')
 import snowboydecoder
 
@@ -14,11 +19,6 @@ class sb(object):
         detector = snowboydecoder.HotwordDetector("/home/pi/xiaolan/snowboy/Alexa.pmdl", sensitivity=0.5, audio_gain=1)
         detector.start(detected_callback)
 
-def detected_callback():
-    print "检测到唤醒，转交指令给xldo"
-    try:
-        sys.exit(-1)
-    except SystemExit:
-        c.start()
+
 
     
