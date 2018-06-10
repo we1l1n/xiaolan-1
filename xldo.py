@@ -42,7 +42,7 @@ def welcome(tok):
     ''')
     bt = baidu_tts()
     selfset = setting.setting()
-    bt.tts(setting['main_setting']['your_name'] + '，你好啊，我是你的小蓝', tok)
+    bt.tts(selfset['main_setting']['your_name'] + '，你好啊，我是你的小蓝', tok)
     speaker.speak()
     os.system('pulseaudio --start')
     awaken()
