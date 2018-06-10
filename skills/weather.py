@@ -2,13 +2,9 @@
 '''天气'''
 import sys
 import os
-import logging
 import json
-import pygame
 import requests
 import urllib2
-import re
-import socket
 sys.path.append('/home/pi/xiaolan/')
 from stt import baidu_stt
 from tts import baidu_tts
@@ -28,17 +24,9 @@ def main(tok):
     selfset = setting.setting()
     host = 'https://api.seniverse.com/v3/weather/now.json?key='
     key = selfset['weather']['key']
-    APIURL = key + '&location=ip&language=zh-Hans&unit=c'
     
-    url = host + APIURL
-
-    r = requests.get(url)
+    r = requests.get(host + key + '&location=ip&language=zh-Hans&unit=c')
     
     json = r.json()
-    print json
-    weather = json['results'][0]['now']['text']
-    temperature = json['results'][0]['now']['temperature']
-    
-    tweatherstates = ',今天,' + weather + '，温度是,'  + temperature + '，摄氏度，'
-    bt.tts(saytext, tok)
+    bt.tts(',今天的天气是,' + json['results'][0]['now']['text'] + '，温度是,'  + json['results'][0]['now']['temperature'] + '，摄氏度，', tok)
     speaker.speak()
