@@ -62,9 +62,11 @@ def convenstation(tok):
     r.record()
     speaker.dong()
     text = bs.stt('./voice.wav', tok)
-    
-    intent = nlu.get_intent(text, tok)
-    s.getskills(intent, text, tok)
+    if text == None:
+        speaker.speacilrecorder()
+    else:
+        intent = nlu.get_intent(text, tok)
+        s.getskills(intent, text, tok)
 
 class skills(object):
 
