@@ -25,8 +25,6 @@ from smarthome import hass
 from maps import maps
 from music import xlMusic
 
-bt = baidu_tts()
-tok = bt.get_token()
 
 def awaken():
     
@@ -50,15 +48,6 @@ def welcome(tok):
     speaker.speak()
     os.system('pulseaudio --start')
     awaken()
-    
-try:
-    if sys.argv[1] == 'unawaken':
-        convenstation(tok)
-    else:
-        welcome(tok)
-except:
-    welcome(tok)
-
 
 def convenstation(tok):
 
@@ -113,3 +102,14 @@ class skills(object):
             speaker.speacilrecorder()
         else:
             nlu.do_intent(text, tok)
+
+
+bt = baidu_tts()
+tok = bt.get_token()
+try:
+    if sys.argv[1] == 'unawaken':
+        convenstation(tok)
+    else:
+        welcome(tok)
+except:
+    welcome(tok)
