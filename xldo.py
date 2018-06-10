@@ -63,7 +63,7 @@ def convenstation(tok):
     speaker.dong()
     text = bs.stt('./voice.wav', tok)
     
-    intent = nlu.get_intent(text)
+    intent = nlu.get_intent(text, tok)
     s.getskills(intent, text, tok)
 
 class skills(object):
@@ -98,6 +98,8 @@ class skills(object):
             express.start(tok)
         elif intent == 'reintent':
             nlu.do_intent(text, tok)
+        elif intent == 'no':
+            speaker.speacilrecorder()
         else:
             nlu.do_intent(text, tok)
 
