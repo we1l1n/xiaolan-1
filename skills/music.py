@@ -39,7 +39,7 @@ class xlMusic(object):
             bt.tts('谢谢使用，下次再见', tok)
             speaker.speak()
             try:
-                
+                sys.exit(-1)
             except SystemExit:
                 os.system('python /home/pi/xiaolan/snowboy.py')
         else:
