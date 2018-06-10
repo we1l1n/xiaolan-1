@@ -81,16 +81,16 @@ def do_intent(text, tok):
         if '闹钟' in text:
                 clock.start(tok)
         elif '打开' in text:
-                sm.cortol('turn_on', text[6:-2], tok)
+                sm.cortol('turn_on', text[6:-1], tok)
         elif '关闭' in text:
-                sm.cortol('turn_off', text[6:-2], tok)
+                sm.cortol('turn_off', text[6:-1], tok)
         elif '获取' in text:
                 if '传感器' in text or '温度' in text:
-                        sm.sensor('sensor', text[6:-2], tok)
+                        sm.sensor('sensor', text[6:-1], tok)
                 elif '湿度' in text:
-                        sm.sensor('sensor', text[6:-2], tok)
+                        sm.sensor('sensor', text[6:-1], tok)
                 else:
-                        sm.sensor('switch', text[6:-2], tok)
+                        sm.sensor('switch', text[6:-1], tok)
         elif '天气' in text:
                 weather.main(tok)
         elif '重新说' in text or '重复' in text:
