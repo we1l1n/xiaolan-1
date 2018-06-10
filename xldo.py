@@ -28,6 +28,10 @@ from music import xlMusic
 bt = baidu_tts()
 tok = bt.get_token()
 
+def awaken():
+    
+    os.system('python /home/pi/xiaolan/snowboy.py')
+    
 def welcome(tok):
     
     print ('''
@@ -56,12 +60,6 @@ except:
     welcome(tok)
 
 
-
-
-def awaken():
-    
-    os.system('python /home/pi/xiaolan/snowboy.py')
-    
 def convenstation(tok):
 
     bs = baidu_stt(1, 2, 3, 4)
