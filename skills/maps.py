@@ -37,7 +37,7 @@ class maps(object):
         
     def go_way(self, place_f, place_s, tok):
         
-        
+        pass
     
     def main(self, tok):
         
