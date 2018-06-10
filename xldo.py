@@ -42,15 +42,14 @@ print ('''
 bt.tts(setting['main_setting']['your_name'] + '，你好啊，我是你的小蓝', tok)
 speaker.speak()
 os.system('pulseaudio --start')
-awaken()
+awaken(tok)
 
-def awaken():
+def awaken(tok):
     
+    s = skills()
     sn = sb()
-    sn.start()
-
-
-        s.getskills(intent, text, tok)
+    list = sn.start()
+    s.getskills(list[0], list[1], tok)
 
 class skills(object):
 
