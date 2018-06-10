@@ -25,6 +25,6 @@ def a():
     try:
         sys.exit(-1)
     except SystemExit:
+        os.system('python /home/pi/xiaolan/xldo.py unawaken')
         
-        sb.convenstation(tok)
     
