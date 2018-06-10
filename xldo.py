@@ -13,14 +13,18 @@ import setting
 sys.path.append('/home/pi/xiaolan/skills/')
 import clock
 import weather
-import music
+from music import xlMusic
 import mail
 import tuling
 import joke
 import news
 import camera
+import ts
+
+import express
 import snowboytrain
 from smarthome import hass
+from maps import maps
 
 bt = baidu_tts()
 tok = bt.get_token()
@@ -72,6 +76,7 @@ class skills(object):
     def getskills(self, intent, text, tok):
         
         s = skills()
+        m = xlMusic()
         if intent == 'clock':
             clock.start(tok)
         elif intent == 'camera':
@@ -81,13 +86,17 @@ class skills(object):
         elif intent == 'weather':
             weather.start(tok)
         elif intent == 'music':
-            music.start(tok)
+            m.start(tok)
+        elif intent == 'translate':
+            ts.start(tok)
         elif intent == 'email':
             mail.start(tok)
         elif intent == 'joke':
             joke.start(tok)
         elif intent == 'news':
             news.start(tok)
+        elif intent == 'express':
+            express.start(tok)
         elif intent == 'reintent':
             nlu.do_intent(text, tok)
 
