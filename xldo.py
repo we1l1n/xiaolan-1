@@ -13,18 +13,17 @@ import setting
 sys.path.append('/home/pi/xiaolan/skills/')
 import clock
 import weather
-from music import xlMusic
 import mail
 import tuling
 import joke
 import news
 import camera
 import ts
-
 import express
 import snowboytrain
 from smarthome import hass
 from maps import maps
+from music import xlMusic
 
 bt = baidu_tts()
 tok = bt.get_token()
