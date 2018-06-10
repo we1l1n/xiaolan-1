@@ -23,7 +23,7 @@ import mail
 import tuling
 import joke
 import news
-import maps
+from maps import maps
 import camera
 import snowboytrain
 import express
