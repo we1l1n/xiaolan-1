@@ -22,7 +22,7 @@ def start(tok):
     m = map()
     m.main(tok)
     
-class map(object):
+class maps(object):
     
     def __init__(self):
       
