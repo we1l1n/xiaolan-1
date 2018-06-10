@@ -23,11 +23,12 @@ import mail
 import tuling
 import joke
 import news
-from maps import maps
 import camera
 import snowboytrain
 import express
 from smarthome import hass
+from maps import maps
+from music import xlMusic
 
 def get_intent(text, tok):
         
