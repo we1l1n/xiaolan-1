@@ -49,21 +49,7 @@ def awaken():
     sn = sb()
     sn.start()
 
-def convenstation(tok):
 
-    bs = baidu_stt(1, 2, 3, 4)
-    bt = baidu_tts()
-    r = recorder()
-    s = skills()
-
-    speaker.ding()
-    r.record()
-    speaker.dong()
-    text = bs.stt('./voice.wav', tok)
-    if text == None:
-        speaker.speacilrecorder()
-    else:
-        intent = nlu.get_intent(text, tok)
         s.getskills(intent, text, tok)
 
 class skills(object):
