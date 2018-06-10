@@ -11,15 +11,10 @@ from recorder import recorder
 sys.path.append('/home/pi/xiaolan/snowboy')
 import snowboydecoder
 
-class sb(object):
-    def __init__(self):
-        pass
-    def start(self):
+def awaken():
 
-        detector = snowboydecoder.HotwordDetector("/home/pi/xiaolan/snowboy/Alexa.pmdl", sensitivity=0.5, audio_gain=1)
-        detector.start(a)
-
-
+    detector = snowboydecoder.HotwordDetector("/home/pi/xiaolan/snowboy/Alexa.pmdl", sensitivity=0.5, audio_gain=1)
+    detector.start(a)
 
 def a():
     try:
