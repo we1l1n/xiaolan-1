@@ -2,6 +2,7 @@
 import sys
 import os
 import pyaudio
+import c
 sys.path.append('/home/pi/xiaolan/snowboy')
 import snowboydecoder
 
@@ -18,6 +19,6 @@ def detected_callback():
     try:
         sys.exit(-1)
     except SystemExit:
-        os.system('python /home/pi/xiaolan/xldo.py convenstation')
+        c.start()
 
     
