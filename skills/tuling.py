@@ -23,7 +23,7 @@ def main(text, tok):
     ak = selfset['tuling']['key']
     ui = selfset['tuling']['user_id']
     url = 'http://openapi.tuling123.com/openapi/api/v2'
-    dataf = {
+    data = {
 	      "reqType":0,
               "perception": {
                   "inputText": {
@@ -35,12 +35,8 @@ def main(text, tok):
                   "userId": ui
               }
            }
-    data = json.dumps(dataf)
-    talkback = requests.post(url, data=data)
-    talkback_data = talkback.json()
-    text = talkback_data["results"][-1]["values"]["text"]
-    saytext = text.encode('utf-8','strict')
+    talkback = requests.post(url, data=json.dumps(data))
     bt = baidu_tts()
-    bt.tts(saytext, tok)
+    bt.tts(talkback.json()["results"][-1]["values"]["text"].encode('utf-8','strict'), tok)
     speaker.speak()
     
