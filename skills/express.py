@@ -11,6 +11,7 @@ import hashlib
 import httplib
 import urllib
 import urllib2
+import re
 sys.path.append('/home/pi/xiaolan/')
 import speaker
 from tts import baidu_tts
