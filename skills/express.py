@@ -26,39 +26,26 @@ def start(tok):
 def number_choose(text, tok):
     
     bt = baidu_tts()
-    base = 0
     try:
-        for texts in text:
-            if text[base] == '一' or text[base] == '1':
-                text[base] = 1
-            elif text[base] == '二' or text[base] == '2':
-                text[base] = 2
-            elif text[base] == '三' or text[base] == '3':
-                text[base] = 3
-            elif text[base] == '四' or text[base] == '4':
-                text[base] = 4
-            elif text[base] == '五' or text[base] == '5':
-                text[base] = 5
-            elif text[base] == '六' or text[base] == '6':
-                text[base] = 6
-            elif text[base] == '七' or text[base] == '7':
-                text[base] = 7
-            elif text[base] == '八' or text[base] == '8':
-                text[base] = 8
-            elif text[base] == '九' or text[base] == '9':
-                text[base] = 9
-            elif text[base] == '零' or text[base] == '0':
-                text[base] = 0
-            base = base + 1
-    except KeyError:
-        return str(text)
+        text.replace('零', 0)
+        text.replace('一', 1)
+        text.replace('二', 2)
+        text.replace('三', 3)
+        text.replace('四', 4)
+        text.replace('五', 5)
+        text.replace('六', 6)
+        text.replace('七', 7)
+        text.replace('八', 8)
+        text.replace('九', 9)
     except TypeError:
-        bt.tts('对不起，快递单号读取错误', tok)
-        speaker.speak()
+        return text
+    except KeyError:
+        return text
     else:
-        return str(text)
+        return text
         
-    
+        
+        
 def main(tok):
     
     bt = baidu_tts()
