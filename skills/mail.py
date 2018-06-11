@@ -7,6 +7,7 @@ import requests
 import json
 import demjson
 import smtplib
+import re
 from email.mime.text import MIMEText
 from email.header import Header
 sys.path.append('/home/pi/xiaolan/')
@@ -63,7 +64,26 @@ class email(object):
         except smtplib.SMTPException:
             bt.tts('无法发送邮件', tok)
             speaker.speak()
+    def number_choose(text, tok):
     
+        bt = baidu_tts()
+        try:
+            text.replace('零', 0)
+            text.replace('一', 1)
+            text.replace('二', 2)
+            text.replace('三', 3)
+            text.replace('四', 4)
+            text.replace('五', 5)
+            text.replace('六', 6)
+            text.replace('七', 7)
+            text.replace('八', 8)
+            text.replace('九', 9)
+        except TypeError:
+            return text
+        except KeyError:
+            return text
+        else:
+            return text
     def main(self, tok):
         
         bt = baidu_tts()
