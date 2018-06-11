@@ -66,7 +66,9 @@ def get_intent(text, tok):
                 return 'reintent'
         except TypeError:
                 return 'reintent'
-        if intent != None:
+        else:
+                pass
+        if intent != None or intent != '':
                 return intent
         else:
                 do_intent(text, tok)
