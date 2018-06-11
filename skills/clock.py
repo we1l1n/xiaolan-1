@@ -4,7 +4,7 @@ import json
 import sys
 import os
 import requests
-import pygame
+import datetime
 import time
 sys.path.append('/home/pi/xiaolan/')
 from stt import baidu_stt
