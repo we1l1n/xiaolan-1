@@ -20,15 +20,17 @@ def main(tok):
     bt = baidu_tts()
     bs = baidu_stt(1, 2, 3, 4)
     r.recorder()
-    asktext = '请问您要设定什么时候的闹钟？要重复请在开头说重复闹钟，默认单次，重复闹钟请说出重复日期哦！'
-    bt.tts(asktext, tok)
+    bt.tts('请问您要设定什么时候的闹钟？', tok)
+    speaker.speak()
+    bt.tts('支持下午几点的说法', tok)
     speaker.speak()
     speaker.ding()
-    r.record()
+    r.exrecord()
     speaker.dong()
-    settext = bs.stt('./voice.wav', tok)
-    if settext[0:3] == '重复闹钟':
-        clockmode = 'reclock'
-        reclocktime = settext[4:6]
+    text = bs.stt('./voice.wav', tok).replace('，', '')
+    if '重复闹钟' in text:
+        if '下午' in text or '上午' in text:
+            text = text.choose_date(text, text.rfind('重复闹钟'), tok)
+            
         
     
