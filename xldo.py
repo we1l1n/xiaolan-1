@@ -9,7 +9,7 @@ from tts import youdao_tts
 from recorder import recorder
 import speaker
 from nlu import Nlu
-from nlu import skills
+from nlu import Skills
 import setting
 sys.path.append('/home/pi/xiaolan/skills/')
 import clock
@@ -35,11 +35,12 @@ class Xiaolan(object):
         self.bt = baidu_tts()
         self.yt = youdao_tts()
         self.bs = baidu_stt(1, 2, 3, 4)
-        self.sk = skills()
+        self.sk = Skills()
         self.sm = hass()
         self.mu = xlMusic()
         self.ma = maps()
-        self.token = bt.get_token()
+        self.xlnlu = Nlu()
+        self.tok = bt.get_token()
         
     def awaken():
     
@@ -67,12 +68,12 @@ class Xiaolan(object):
         speaker.ding()
         r.record()
         speaker.dong()
-        text = self.bs.stt('./voice.wav', tok).Remove(str.Length-1)
-        if text == None:
+        text = self.bs.stt('./voice.wav', self.tok).Remove(str.Length-1)
+        if text == None or text == '':
             speaker.speacilrecorder()
         else:
-            intent = nlu.get_intent(text)
-            sk.getskills(intent, text)
+            intentdict = xlnlu.xl_intent(text)
+            sk.getskills(intentdict, text)
     
 
 
