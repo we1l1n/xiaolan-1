@@ -56,11 +56,11 @@ class hass(object):
 	h = hass()
         if '打开' in text or '开启' in text:
             
-            h.cortol('turn_on', text[6:-2], tok)
+            h.cortol('turn_on', text[text.rfind('打开') + 6:-1], tok)
 
         elif '关闭' in text or '关掉' in text:
 
-            h.cortol('turn_off', text[6:-2], tok)
+            h.cortol('turn_off', text[text.rfind('关闭') + 6:-1], tok)
         
         elif '获取' in text:
 
@@ -68,7 +68,7 @@ class hass(object):
                 getstatemode = 'sensor'
             else:
                 getstatemode = 'switch'
-            h.sensor(getstatemode, text[6:-3], tok)
+            h.sensor(getstatemode, text[6:-2], tok)
 	elif '怎么样' in text:
 	    if '传感器' in command:
                 getstatemode = 'sensor'
