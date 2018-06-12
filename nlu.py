@@ -11,7 +11,6 @@ import requests
 import demjson
 import base64
 import hashlib
-import setting
 from xldo import Xiaolan
 from recorder import recorder
 from tts import baidu_tts
@@ -34,8 +33,21 @@ from music import xlMusic
 
 class Nlu(Xiaolan):
         def __init__(self):
+                self.dictcity = ['北京市', '中山市', '上海市', '广州市', '长春市', '天津市', '重庆市', '哈尔滨市', '西安市', '武汉市'
+                                '沈阳市', '南京市', '成都市', '石家庄市', '大连市', '齐齐哈尔市', '南昌市', '郑州市', '兰州市', '唐山市'
+                                '鞍山市', '徐州市', '济南市', '长沙市', '乌鲁木齐市', '太原市', '抚顺市', '杭州市', '青岛市', 
+                                '贵阳市', '包头市', '吉林市', '福州市', '淄博市', '昆明市', '邯郸市', '保定市', '张家口市', '大同市',
+                                '呼和浩特市', '本溪市', '丹东市', '锦州市','阜新市', '辽阳市', '鸡西市', '鹤岗市', '大庆市',	'伊春市',
+                                '佳木斯市',	'牡丹江市', '无锡市', '常州市', '苏州市','宁波市'
+安徽省合肥市	安徽省淮南市	安徽省淮北市	福建省厦门市
+山东省枣庄市	山东省烟台市	山东省潍坊市	山东省泰安市
+山东省临沂市	河南省开封市	河南省洛阳市	河南省平顶山市
+河南省安阳市	河南省新乡市	河南省焦作市	湖北省黄石市
+湖北省襄樊市	湖北省荆州市	湖南省株洲市	湖南省湘潭市
+湖南省衡阳市	广东省深圳市	广东省汕头市	广东省湛江市
+广西南宁市	广西柳州市	青海省西宁市', '']
                 self.intentlist = [
-                        ['weather', ['天气', '天气怎么样', '查询天气', '今天天气'], 'weather'],
+                        ['weather', ['天气', '天气怎么样', '查询天气', '今天天气'], [self.dictcity], 'weather'],
                         ['talk', ['我想跟你聊一聊', '我想聊你'], 'tuling'],
                         ['default', [], 'tuling'],
                         ['joke', ['我想听笑话', '笑话', '冷笑话', '给我讲一个笑话'], 'joke'],
@@ -118,49 +130,34 @@ class Nlu(Xiaolan):
         def xl_intent(text):
 
                 for a in self.turn:
-                         if self.intentlist[a][1][a] in text:
+                        if self.intentlist[a][1][a] in text:
+                                slots = intentlist[a][2]
                                 return {
                                         'intent': self.intentlist[a][0],
-                                        'skills': self.intentlist[a][2],
+                                        'skills': self.intentlist[a][3],
+                                        'slots': slots
                                         'command': [
                                                 'skills_requests'
                                         ]
                                 }
+                         a = a + 1
 
 class skills(Xiaolan):
 
     def __init__(self):
 
-        pass
+        self.skillsdef = {
+                'weather': weather.start(),
+                'clock': clock.start(),
+                'joke': joke.start(),
+                'smarthome': self.sm.main(),
+                'news': news.start()
+        }
 
-    def getskills(self, intent, text):
+    def startskills(self, intentdict, text):
+                         
         
-        if intent == 'clock':
-            clock.start()
-        elif intent == 'camera':
-            camera.start()
-        elif intent == 'smarthome':
-            smarthome.start()
-        elif intent == 'weather':
-            weather.start()
-        elif intent == 'music':
-            m.start()
-        elif intent == 'translate':
-            ts.start()
-        elif intent == 'email':
-            mail.start()
-        elif intent == 'joke':
-            joke.start()
-        elif intent == 'news':
-            news.start()
-        elif intent == 'express':
-            express.start()
-        elif intent == 'reintent':
-            sk.doskills(text)
-        elif intent == 'no':
-            speaker.speacilrecorder()
-        else:
-            sk.doskills(text)
+        
         
 
     
