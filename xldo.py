@@ -8,7 +8,7 @@ from tts import baidu_tts
 from tts import youdao_tts
 from recorder import recorder
 import speaker
-import nlu
+from nlu import skills
 import setting
 sys.path.append('/home/pi/xiaolan/skills/')
 import clock
@@ -25,91 +25,60 @@ from smarthome import hass
 from maps import maps
 from music import xlMusic
 
-
-def awaken():
-    
-    os.system('python /home/pi/xiaolan/snowboy.py')
-    
-def welcome(tok):
-    
-    print ('''
-
-    ###################################
-    #     小蓝-中文智能家居对话机器人      #
-    #   (c)蓝之酱-1481605673@qq.com    #
-    # www.github.com/xiaoland/xiaolan #
-    #         欢迎使用!!!  :)          #
-    ###################################
-
-    ''')
-    bt = baidu_tts()
-    selfset = setting.setting()
-    bt.tts(selfset['main_setting']['your_name'] + '，你好啊，我是你的小蓝', tok)
-    speaker.speak()
-    os.system('pulseaudio --start')
-    awaken()
-
-def convenstation(tok):
-
-    bs = baidu_stt(1, 2, 3, 4)
-    bt = baidu_tts()
-    r = recorder()
-    s = skills()
-    
-    speaker.ding()
-    r.record()
-    speaker.dong()
-    text = bs.stt('./voice.wav', tok).Remove(str.Length-1)
-    if text == None:
-        speaker.speacilrecorder()
-    else:
-        intent = nlu.get_intent(text, tok)
-        s.getskills(intent, text, tok)
-    
-class skills(object):
-
+class Xiaolan(object):
     def __init__(self):
-
-        pass
-
-    def getskills(self, intent, text, tok):
         
-        s = skills()
-        m = xlMusic()
-        if intent == 'clock':
-            clock.start(tok)
-        elif intent == 'camera':
-            camera.start(tok)
-        elif intent == 'smarthome':
-            smarthome.start(tok)
-        elif intent == 'weather':
-            weather.start(tok)
-        elif intent == 'music':
-            m.start(tok)
-        elif intent == 'translate':
-            ts.start(tok)
-        elif intent == 'email':
-            mail.start(tok)
-        elif intent == 'joke':
-            joke.start(tok)
-        elif intent == 'news':
-            news.start(tok)
-        elif intent == 'express':
-            express.start(tok)
-        elif intent == 'reintent':
-            nlu.do_intent(text, tok)
-        elif intent == 'no':
+        self.awaken = Xiaolan.awaken()
+        self.selfset = setting.setting()
+        self.r = recorder()
+        self.bt = baidu_tts()
+        self.yt = youdao_tts()
+        self.bs = baidu_stt(1, 2, 3, 4)
+        self.sk = skills()
+        self.sm = hass()
+        self.mu = xlMusic()
+        self.ma = maps()
+        self.token = bt.get_token()
+        
+    def awaken():
+    
+        os.system('python /home/pi/xiaolan/snowboy.py')
+    
+    def welcome():
+    
+        print ('''
+
+        ###################################
+        #     小蓝-中文智能家居对话机器人      #
+        #   (c)蓝之酱-1481605673@qq.com    #
+        # www.github.com/xiaoland/xiaolan #
+        #         欢迎使用!!!  :)          #
+        ###################################
+
+        ''')
+        bt.tts(self.selfset['main_setting']['your_name'] + '，你好啊，我是你的小蓝', self.tok)
+        speaker.speak()
+        os.system('pulseaudio --start')
+        awaken()
+
+    def convenstation():
+        
+        speaker.ding()
+        r.record()
+        speaker.dong()
+        text = self.bs.stt('./voice.wav', tok).Remove(str.Length-1)
+        if text == None:
             speaker.speacilrecorder()
         else:
-            nlu.do_intent(text, tok)
+            intent = nlu.get_intent(text)
+            sk.getskills(intent, text)
+    
 
 
-bt = baidu_tts()
-tok = bt.get_token()
 try:
     if sys.argv[1] == 'unawaken':
-        convenstation(tok)
+        convenstation()
     else:
-        welcome(tok)
+        welcome()
 except:
-    welcome(tok)
+    welcome()
