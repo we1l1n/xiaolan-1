@@ -16,6 +16,7 @@ from xldo import Xiaolan
 from recorder import recorder
 from tts import baidu_tts
 from stt import baidu_stt
+from tts import youdao_tts
 sys.path.append('/home/pi/xiaolan/skills/')
 import clock
 import weather
