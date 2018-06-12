@@ -138,5 +138,42 @@ def do_intent(text, tok):
     else:
         speaker.speacilrecorder()
 
+class skills(Xiaolan):
+
+    def __init__(self):
+
+        pass
+
+    def getskills(self, intent, text):
+        
+        s = skills()
+        m = xlMusic()
+        if intent == 'clock':
+            clock.start()
+        elif intent == 'camera':
+            camera.start()
+        elif intent == 'smarthome':
+            smarthome.start()
+        elif intent == 'weather':
+            weather.start()
+        elif intent == 'music':
+            m.start()
+        elif intent == 'translate':
+            ts.start()
+        elif intent == 'email':
+            mail.start()
+        elif intent == 'joke':
+            joke.start()
+        elif intent == 'news':
+            news.start()
+        elif intent == 'express':
+            express.start()
+        elif intent == 'reintent':
+            sk.doskills(text)
+        elif intent == 'no':
+            speaker.speacilrecorder()
+        else:
+            sk.doskills(text)
+        
 
     
