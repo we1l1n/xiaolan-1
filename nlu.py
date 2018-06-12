@@ -12,6 +12,7 @@ import demjson
 import base64
 import hashlib
 import setting
+from xldo import Xiaolan
 from recorder import recorder
 from tts import baidu_tts
 from stt import baidu_stt
@@ -30,113 +31,100 @@ from smarthome import hass
 from maps import maps
 from music import xlMusic
 
-def get_intent(text, tok):
+class Nlu(Xiaolan):
+        def __init__(self):
+                self.intentlist = [
+                        ['weather', ['天气', '天气怎么样', '查询天气', '今天天气'], 'weather'],
+                        ['talk', ['我想跟你聊一聊', '我想聊你'], 'tuling'],
+                        ['default', [], 'tuling'],
+                        ['joke', ['我想听笑话', '笑话', '冷笑话', '给我讲一个笑话'], 'joke'],
+                        ['news', ['我想听新闻', '今天的新闻', '新闻', '今天有什么新闻'], 'news'],
+                        ['smarthome', ['打开', '关闭', '开启', '获取', '传感器', '智能家居'], 'hass'],
+                        ['clock'
+                self.music_service = {'musicurl_get': 'method=baidu.ting.song.play&songid=', 'search': 'method=baidu.ting.search.catalogSug&query=', 'hot': 'method=baidu.ting.song.getRecommandSongList&song_id=877578&num=12'}
+                self.turn = 0
+        def get_intent(text):
         
-        selfset = setting.setting()
-        urlf = 'http://api.xfyun.cn/v1/aiui/v1/text_semantic?text='
-        appid = selfset['main_setting']['NLU']['appid']
-        apikey = selfset['main_setting']['NLU']['key']
-        lastmdl = 'eyJ1c2VyaWQiOiIxMyIsInNjZW5lIjoibWFpbiJ9'
-        curtimeo = int(time.time())
-        curtimef = str(curtimeo)
+                selfset = setting.setting()
+                urlf = 'http://api.xfyun.cn/v1/aiui/v1/text_semantic?text='
+                appid = selfset['main_setting']['NLU']['appid']
+                apikey = selfset['main_setting']['NLU']['key']
+                lastmdl = 'eyJ1c2VyaWQiOiIxMyIsInNjZW5lIjoibWFpbiJ9'
+                curtimeo = int(time.time())
+                curtimef = str(curtimeo)
         
-        try:
-                 textl = base64.b64encode(text)
-        except TypeError:
-                intent = 'no'
-                return intent
-                
-        textv = 'text=' + textl
+                try:
+                        textl = base64.b64encode(text)
+                except TypeError:
+                        return {
+                                'intent': None,
+                                'skills': None,
+                                'command': [
+                                        'speacilrecorder'
+                                ]
+                        }
         
-        csumc = apikey + curtimef + 'eyJ1c2VyaWQiOiIxMyIsInNjZW5lIjoibWFpbiJ9' + textv
+                csumc = apikey + curtimef + 'eyJ1c2VyaWQiOiIxMyIsInNjZW5lIjoibWFpbiJ9' + 'text=' + textl
 
-        c = hashlib.md5()
-        c.update(csumc)
-        checksuml = c.hexdigest()
+                c = hashlib.md5()
+                c.update(csumc)
+                checksuml = c.hexdigest()
         
-        headers = {'X-Appid': appid, 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'X-CurTime': curtimef, 'X-Param': 'eyJ1c2VyaWQiOiIxMyIsInNjZW5lIjoibWFpbiJ9', 'X-CheckSum': checksuml}
-        url = urlf + textl
+                headers = {'X-Appid': appid, 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'X-CurTime': curtimef, 'X-Param': 'eyJ1c2VyaWQiOiIxMyIsInNjZW5lIjoibWFpbiJ9', 'X-CheckSum': checksuml}
+                url = urlf + textl
         
-        r = requests.post(url,
-                          headers=headers)
-        json = r.json()
-        try:
-                intent = json['data']['service']
-        except KeyError:
-                return 'reintent'
-        except TypeError:
-                return 'reintent'
-        else:
-                pass
-        if intent != None or intent != '':
-                return intent
-        else:
-                do_intent(text, tok)
-
-def do_intent(text, tok):
-
-    sm = hass()
-    m = xlMusic()
-    services = {'musicurl_get': 'method=baidu.ting.song.play&songid=', 'search': 'method=baidu.ting.search.catalogSug&query=', 'hot': 'method=baidu.ting.song.getRecommandSongList&song_id=877578&num=12'}
-    
-    if text != None:
-        if '闹钟' in text:
-                clock.start(tok)
-        elif '打开' in text:
-                sm.cortol('turn_on', text[6:-1], tok)
-        elif '关闭' in text:
-                sm.cortol('turn_off', text[6:-1], tok)
-        elif '获取' in text:
-                if '传感器' in text or '温度' in text:
-                        sm.sensor('sensor', text[6:-1], tok)
-                elif '湿度' in text:
-                        sm.sensor('sensor', text[6:-1], tok)
+                r = requests.post(url,
+                                  headers=headers)
+                json = r.json()
+                try:
+                        intent = json['data']['service']
+                except KeyError:
+                        return {
+                                'intent': None,
+                                'skills': None,
+                                'command': [
+                                        'outputSppech', '对不起，我无法理解您的意思'
+                                ]
+                        }
+                except TypeError:
+                        return {
+                                'intent': None,
+                                'skills': None,
+                                'command': [
+                                        'outputSppech', '对不起，我无法理解您的意思'
+                                ]
+                                        
+                        }
                 else:
-                        sm.sensor('switch', text[6:-1], tok)
-        elif '天气' in text:
-                weather.main(tok)
-        elif '重新说' in text or '重复' in text:
-                speaker.speak()
-        elif '翻译' in text:
-                ts.main(tok)
-        elif '搜索' in text:
-                tuling.main(text, tok)
-        elif '闲聊' in text:
-                tuling.main(text, tok)
-        elif '怎么走' in text:
-                maps.start(tok)
-        elif '酒店' in text:
-                tuling.main(text, tok)
-        elif '旅游' in text:
-                tuling.main(text, tok)
-        elif '新闻' in text:
-                news.start(tok)
-        elif '拍照' in text:
-                camera.start(tok)
-        elif '邮件' in text or '邮件助手' in text:
-                mail.start(tok)
-        elif '快递' in text:
-                express.start(tok)
-        elif '笑话' in text:
-                joke.main(tok)
-        elif '训练' in text:
-                snowboytrain.start(tok)
-        elif '播放' in text:
-            if '音乐' in text:
-                m.sui_ji(services, tok)
-            else:
-                songname = text[2:-1]
-                m.sou_suo(services, songname, tok)
-        elif '我想听' in text:
-            if '音乐' in text:
-                m.sui_ji(services, tok)
-            else:
-                songname = text[3:-1]
-                m.sou_suo(services, songname, tok)
-        else:
-                tuling.start(text, tok)
-    else:
-        speaker.speacilrecorder()
+                        if intent != None or intent != '':
+                            return {
+                                    'intent': intent,
+                                    'skills': intent,
+                                    'command': [
+                                            'skills_requests'
+                                    ]
+                            }
+                        else:
+                            return {
+                                    'intent': None,
+                                    'skills': None,
+                                    'command': [
+                                        'outputSppech', '对不起，我无法理解您的意思'
+                                    ]
+                            }
+                
+
+        def xl_intent(text):
+
+                for a in self.turn:
+                         if self.intentlist[a][1][a] in text:
+                                return {
+                                        'intent': self.intentlist[a][0],
+                                        'skills': self.intentlist[a][2],
+                                        'command': [
+                                                'skills_requests'
+                                        ]
+                                }
 
 class skills(Xiaolan):
 
@@ -146,8 +134,6 @@ class skills(Xiaolan):
 
     def getskills(self, intent, text):
         
-        s = skills()
-        m = xlMusic()
         if intent == 'clock':
             clock.start()
         elif intent == 'camera':
