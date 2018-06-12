@@ -8,7 +8,7 @@ from tts import baidu_tts
 from tts import youdao_tts
 from recorder import recorder
 import speaker
-from nlu import xl_intent
+from nlu import Nlu
 from nlu import skills
 import setting
 sys.path.append('/home/pi/xiaolan/skills/')
