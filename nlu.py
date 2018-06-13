@@ -58,12 +58,13 @@ class Nlu(Xiaolan):
             try:
                 for a in self.turn:
                         if slotslist[1][a] in text:
-                                return {
+                                returndict {
                                         slotslist[0]: slotslist[1][a]
                                 }
                                 break
                         else:
                                 a = a + 1
+                return returndict
             except KeyError:
                 return None
                         
@@ -156,11 +157,10 @@ class Nlu(Xiaolan):
                 for b in self.turn:
                     
                         if self.intentlist[b][1][b] in text:
-                                slots = self.xlnlu.get_slots(intentlist[b][2], text)
                                 return {
                                         'intent': self.intentlist[b][0],
                                         'skill': self.intentlist[b][3],
-                                        'slots': slots
+                                        'slots': self.xlnlu.get_slots(intentlist[b][2], text)
                                         'command': [
                                                 'skill', 'start'
                                         ]
