@@ -25,9 +25,9 @@ def setting():
                        'appkey': 'G6E8WI8kqeixpIyQaa2cCmj3sHHsgDm8'
                    },
                    'NLU': {            #NLU语义理解服务选择，目前仅支持讯飞
-                       
-                       'key': '9e1b8f6028b14b969cdec166eca127ea',
-                       'appid': '5ace1bbb'
+                       'iflytek': {
+                           'key': '9e1b8f6028b14b969cdec166eca127ea',
+                           'appid': '5ace1bbb'
                    },
                    'your_name': '翊闳',
                    'loc': '中山'
