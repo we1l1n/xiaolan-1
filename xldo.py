@@ -73,7 +73,7 @@ class Xiaolan(object):
             speaker.speacilrecorder()
         else:
             intentdict = xlnlu.xl_intent(text)
-            sk.getskills(intentdict, text)
+            sk.getskills(intentdict[a][0], text)
     
 
 
