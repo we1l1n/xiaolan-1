@@ -38,4 +38,4 @@
 - 加快响应速度
 - 小蓝语义理解系统全面升级，将小蓝语义理解引擎作为首选语义理解引擎，第二候选语义理解引擎为讯飞语义理解引擎
 - 小蓝语义理解引擎升级为支持槽位填充和意图多重识别还有追问填充槽位
-- 小蓝语义理解引擎return改为：{'intent': intent, 'skill' skill, 'slots': slots(DICT), 'commands': commands(LIST), 'states': states(LIST)}
+- 小蓝语义理解系统的return改为：{'intent': intent, 'skill' skill, 'slots': slots(DICT), 'commands': commands(LIST), 'states': states(LIST)}
