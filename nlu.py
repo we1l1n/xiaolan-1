@@ -45,25 +45,27 @@ class Nlu(Xiaolan):
                 ]
                 self.intentlist = [
                         ['weather', ['天气', '天气怎么样', '查询天气', '今天天气'], ['city', self.dictcity], 'weather'],
-                        ['talk', ['我想跟你聊一聊', '我想聊你'], 'tuling'],
-                        ['joke', ['我想听笑话', '笑话', '冷笑话', '给我讲一个笑话'], 'joke'],
+                        ['talk', ['我想跟你聊一聊', '我想聊你'], [], 'tuling'],
+                        ['joke', ['我想听笑话', '笑话', '冷笑话', '给我讲一个笑话'], [], 'joke'],
                         ['news', ['我想听新闻', '今天的新闻', '新闻', '今天有什么新闻'], 'news'],
                         ['smarthome', ['打开', '关闭', '开启', '获取', '传感器', '智能家居'], 'hass'],
-                        ['clock']
+                        ['clock', ['设定一个闹钟', '闹钟', '设置新闹钟', '新建闹钟'], ['day', self.dictday, 'weekday', self.dictweekday, 'hour', self.dicthour, 'minute', self.dictminute], 'clock']
                 ]
                 self.music_service = {'musicurl_get': 'method=baidu.ting.song.play&songid=', 'search': 'method=baidu.ting.search.catalogSug&query=', 'hot': 'method=baidu.ting.song.getRecommandSongList&song_id=877578&num=12'}
                 self.turn = 0
+                self.turns = 1
         
         def get_slots(slotslist, text):
+
             try:
                 for a in self.turn:
                         if slotslist[1][a] in text:
-                                returndict {
+                                returndict = {
                                         slotslist[0]: slotslist[1][a]
                                 }
                                 break
                         else:
-                                a = a + 1
+                                a = a + 2
                 return returndict
             except KeyError:
                 return None
@@ -157,10 +159,14 @@ class Nlu(Xiaolan):
                 for b in self.turn:
                     
                         if self.intentlist[b][1][b] in text:
-                                return {
+                                if self.intentlist[b][2] != [] or self.intentlist[b][1] != None:
+                                        slots = self.xlnlu.get_slots(self.intentlist[b][2], text)
+                                else:
+                                        slots = 'unset'
+                                returndict = {
                                         'intent': self.intentlist[b][0],
                                         'skill': self.intentlist[b][3],
-                                        'slots': self.xlnlu.get_slots(intentlist[b][2], text)
+                                        'slots': slots
                                         'command': [
                                                 'skill', 'start'
                                         ]
@@ -171,6 +177,7 @@ class Nlu(Xiaolan):
                                 break
                         else:
                                 b = b + 1
+                return returndict
             except KeyError:
                 return {
                         'intent': self.xlnlu.iflytek_intent(text),
