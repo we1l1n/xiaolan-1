@@ -33,30 +33,44 @@ from music import xlMusic
 
 class Nlu(Xiaolan):
         def __init__(self):
-                self.dictcity = ['北京市', '中山市', '上海市', '广州市', '长春市', '天津市', '重庆市', '哈尔滨市', '西安市', '武汉市'
-                                '沈阳市', '南京市', '成都市', '石家庄市', '大连市', '齐齐哈尔市', '南昌市', '郑州市', '兰州市', '唐山市'
+                self.dictcity = [
+                                '北京市', '中山市', '上海市', '广州市', '长春市', '天津市', '重庆市', '哈尔滨市', '西安市', '武汉市',
+                                '沈阳市', '南京市', '成都市', '石家庄市', '大连市', '齐齐哈尔市', '南昌市', '郑州市', '兰州市', '唐山市',
                                 '鞍山市', '徐州市', '济南市', '长沙市', '乌鲁木齐市', '太原市', '抚顺市', '杭州市', '青岛市', 
                                 '贵阳市', '包头市', '吉林市', '福州市', '淄博市', '昆明市', '邯郸市', '保定市', '张家口市', '大同市',
                                 '呼和浩特市', '本溪市', '丹东市', '锦州市','阜新市', '辽阳市', '鸡西市', '鹤岗市', '大庆市',	'伊春市',
                                 '佳木斯市',	'牡丹江市', '无锡市', '常州市', '苏州市','宁波市', '合肥市', '淮南市', '安徽省淮北市', '福建省厦门市',
                                 '枣庄市', '烟台市', '潍坊市', '泰安市', '临沂市', '开封市', '洛阳市', '平顶山市', '安阳市', '新乡市', '焦作市', '黄石市',
-                                '襄樊市', '荆州市', '株洲市', '湘潭市', '衡阳市', '深圳市',' 汕头市', '湛江市', '南宁市', '柳州市', '西宁市']
+                                '襄樊市', '荆州市', '株洲市', '湘潭市', '衡阳市', '深圳市',' 汕头市', '湛江市', '南宁市', '柳州市', '西宁市'
+                ]
                 self.intentlist = [
-                        ['weather', ['天气', '天气怎么样', '查询天气', '今天天气'], [self.dictcity], 'weather'],
+                        ['weather', ['天气', '天气怎么样', '查询天气', '今天天气'], ['city', self.dictcity], 'weather'],
                         ['talk', ['我想跟你聊一聊', '我想聊你'], 'tuling'],
                         ['joke', ['我想听笑话', '笑话', '冷笑话', '给我讲一个笑话'], 'joke'],
                         ['news', ['我想听新闻', '今天的新闻', '新闻', '今天有什么新闻'], 'news'],
                         ['smarthome', ['打开', '关闭', '开启', '获取', '传感器', '智能家居'], 'hass'],
-                        ['clock'
+                        ['clock']
+                ]
                 self.music_service = {'musicurl_get': 'method=baidu.ting.song.play&songid=', 'search': 'method=baidu.ting.search.catalogSug&query=', 'hot': 'method=baidu.ting.song.getRecommandSongList&song_id=877578&num=12'}
                 self.turn = 0
-        def get_intent(text):
         
-                selfset = setting.setting()
-                urlf = 'http://api.xfyun.cn/v1/aiui/v1/text_semantic?text='
-                appid = selfset['main_setting']['NLU']['appid']
-                apikey = selfset['main_setting']['NLU']['key']
-                lastmdl = 'eyJ1c2VyaWQiOiIxMyIsInNjZW5lIjoibWFpbiJ9'
+        def get_slots(slotslist, text):
+            try:
+                for a in self.turn:
+                        if slotslist[1][a] in text:
+                                return {
+                                        slotslist[0]: slotslist[1][a]
+                                }
+                                break
+                        else:
+                                a = a + 1
+            except KeyError:
+                return None
+                        
+        def iflytek_intent(self, text):
+                
+                appid = self.selfset['main_setting']['NLU']['iflytek']['appid']
+                apikey = self.selfset['main_setting']['NLU']['iflytek']['key']
                 curtimeo = int(time.time())
                 curtimef = str(curtimeo)
         
@@ -65,9 +79,12 @@ class Nlu(Xiaolan):
                 except TypeError:
                         return {
                                 'intent': None,
-                                'skills': None,
+                                'skill': None,
                                 'command': [
-                                        'speacilrecorder'
+                                        'speaker', 'speacilrecorder'
+                                ]
+                                'states': [
+                                        'nlu_intent_back_none'
                                 ]
                         }
         
@@ -78,7 +95,7 @@ class Nlu(Xiaolan):
                 checksuml = c.hexdigest()
         
                 headers = {'X-Appid': appid, 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'X-CurTime': curtimef, 'X-Param': 'eyJ1c2VyaWQiOiIxMyIsInNjZW5lIjoibWFpbiJ9', 'X-CheckSum': checksuml}
-                url = urlf + textl
+                url = 'http://api.xfyun.cn/v1/aiui/v1/text_semantic?text=' + textl
         
                 r = requests.post(url,
                                   headers=headers)
@@ -88,17 +105,23 @@ class Nlu(Xiaolan):
                 except KeyError:
                         return {
                                 'intent': None,
-                                'skills': None,
+                                'skill': None,
                                 'command': [
-                                        'outputSppech', '对不起，我无法理解您的意思'
+                                        'tts', '对不起，我无法理解您的意思'
+                                ]
+                                'states': [
+                                        'nlu_intent_back_none'
                                 ]
                         }
                 except TypeError:
                         return {
                                 'intent': None,
-                                'skills': None,
+                                'skill': None,
                                 'command': [
-                                        'outputSppech', '对不起，我无法理解您的意思'
+                                        'tts', '对不起，我无法理解您的意思'
+                                ]
+                                'states': [
+                                        'nlu_intent_back_none'
                                 ]
                                         
                         }
@@ -106,35 +129,64 @@ class Nlu(Xiaolan):
                         if intent != None or intent != '':
                             return {
                                     'intent': intent,
-                                    'skills': intent,
+                                    'skill': intent,
                                     'command': [
                                             'skills_requests'
+                                    ]
+                                    'states': [
+                                        'nlu_intent_back_none'
                                     ]
                             }
                         else:
                             return {
                                     'intent': None,
-                                    'skills': None,
+                                    'skill': None,
                                     'command': [
-                                        'outputSppech', '对不起，我无法理解您的意思'
+                                        'tts', '对不起，我无法理解您的意思'
+                                    ]
+                                    'states': [
+                                        'nlu_intent_back_none'
                                     ]
                             }
                 
 
-        def xl_intent(text):
-
-                for a in self.turn:
-                        if self.intentlist[a][1][a] in text:
-                                slots = intentlist[a][2]
+        def xl_intent(self, text):
+                
+            try:
+                for b in self.turn:
+                    
+                        if self.intentlist[b][1][b] in text:
+                                slots = self.xlnlu.get_slots(intentlist[b][2], text)
                                 return {
-                                        'intent': self.intentlist[a][0],
-                                        'skills': self.intentlist[a][3],
+                                        'intent': self.intentlist[b][0],
+                                        'skill': self.intentlist[b][3],
                                         'slots': slots
                                         'command': [
-                                                'skills_requests'
+                                                'skill', 'start'
+                                        ]
+                                        'states': [
+                                                'xl_nlu_intent_back'
                                         ]
                                 }
-                         a = a + 1
+                                break
+                        else:
+                                b = b + 1
+            except KeyError:
+                return {
+                        'intent': self.xlnlu.iflytek_intent(text),
+                        'skill': self.xlnlu.iflytek_intent(text),
+                        'slots': None,
+                        'commmands': [
+                                'skill', 'start'
+                        ]
+                        'states': [
+                                'iflytek_nlu_intent_back'
+                        ]
+                }
+                        
+                                
+                                
+                                
 
 class Skills(Xiaolan):
 
