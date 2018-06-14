@@ -16,6 +16,7 @@ from recorder import recorder
 from tts import baidu_tts
 from stt import baidu_stt
 from tts import youdao_tts
+import slotdicts
 sys.path.append('/home/pi/xiaolan/skills/')
 import clock
 import weather
@@ -44,7 +45,7 @@ class Nlu(Xiaolan):
                                 '襄樊市', '荆州市', '株洲市', '湘潭市', '衡阳市', '深圳市',' 汕头市', '湛江市', '南宁市', '柳州市', '西宁市'
                 ]
                 self.intentlist = [
-                        ['weather', ['天气', '天气怎么样', '查询天气', '今天天气'], ['city', self.dictcity], 'weather'],
+                        ['weather', ['天气', '天气怎么样', '查询天气', '今天天气'], ['city', slotdicts.dictcity()], 'weather'],
                         ['talk', ['我想跟你聊一聊', '我想聊你'], [], 'tuling'],
                         ['joke', ['我想听笑话', '笑话', '冷笑话', '给我讲一个笑话'], [], 'joke'],
                         ['news', ['我想听新闻', '今天的新闻', '新闻', '今天有什么新闻'], ['newstype', self.dictnewstype] 'news'],
