@@ -19,6 +19,8 @@
 ### https://github.com/xiaoland/xiaolan-dev/wiki
 ![服务架构](https://github.com/xiaoland/xiaolan-dev/blob/master/%E5%B0%8F%E8%93%9D%E6%9C%8D%E5%8A%A1%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.PNG)
 
+# 注意：小蓝将在暑假进行重构，进入小蓝2
+
 ## 更新：（有时间先后顺序）
 - 注意：旧的更新在xiaolan-dev，这里是小蓝-1
 - 小蓝添加可配置性，设置文件在setting.py
