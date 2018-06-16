@@ -31,6 +31,7 @@ class Xiaolan(object):
         
         self.awaken = Xiaolan.awaken()
         self.selfset = setting.setting()
+        self.xl = Xiaolan()
         self.r = recorder()
         self.bt = baidu_tts()
         self.yt = youdao_tts()
@@ -61,9 +62,26 @@ class Xiaolan(object):
         bt.tts(self.selfset['main_setting']['your_name'] + '，你好啊，我是你的小蓝', self.tok)
         speaker.speak()
         os.system('pulseaudio --start')
-        awaken()
+        self.xl.awaken()
     
     def replacenumber(self, text):
+        try:
+            text.replace('零', 0)
+            text.replace('一', 1)
+            text.replace('二', 2)
+            text.replace('三', 3)
+            text.replace('四', 4)
+            text.replace('五', 5)
+            text.replace('六', 6)
+            text.replace('七', 7)
+            text.replace('八', 8)
+            text.replace('九', 9)
+        except TypeError:
+            return text
+        except KeyError:
+            return text
+        else:
+            return text
         
     
     def convenstation():
@@ -71,7 +89,8 @@ class Xiaolan(object):
         speaker.ding()
         r.record()
         speaker.dong()
-        text = self.bs.stt('./voice.wav', self.tok).Remove(str.Length-1)
+        text = self.bs.stt('./voice.wav', self.tok).replace(',', '')
+        text = self.xl.replacenumber(text)
         if text == None or text == '':
             speaker.speacilrecorder()
         else:
