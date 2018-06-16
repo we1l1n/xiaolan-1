@@ -62,7 +62,10 @@ class Xiaolan(object):
         speaker.speak()
         os.system('pulseaudio --start')
         awaken()
-
+    
+    def replacenumber(self, text):
+        
+    
     def convenstation():
         
         speaker.ding()
