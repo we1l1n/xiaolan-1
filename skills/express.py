@@ -77,9 +77,10 @@ def main(tok):
            }
     hash.update(str(requestData) + selfset['express']['key'], encoding='utf-8')
     data['DataSign'] = urllib.urlencode(base64.b64encode(hash.hexdigest()))
-    json = requests.post('http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx',
+    r = requests.post('http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx',
                          data=data,
                          headers='application/x-www-form-urlencoded;charset=utf-8')
+    json = r.json()
     try:
         bt.tts(json['Traces'][-1]['AcceptStation'], tok)
         speaker.speak()
