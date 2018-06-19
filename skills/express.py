@@ -5,12 +5,10 @@ import sys
 import os
 import requests
 import json
-import demjson
 import base64
 import hashlib
-import httplib
 import urllib
-import urllib2
+from urllib import parse
 import re
 sys.path.append('/home/pi/xiaolan/')
 import speaker
@@ -64,30 +62,33 @@ def main(tok):
     speaker.dong()
     
     requestData = {
-                   'OrderCode': number_choose(bs.stt('./voice.wav', tok), tok),
-                   'ShipperCode':'YTO',
+                   'OrderCode': id,
+                   'ShipperCode': service,
                    'LogisticCode':'12345678'
-                  }
+        }
     
-    data = {
-            'EBusinessID': selfset['express']['EBusinessID'],
-            'RequestType': '1002',
-            'RequestData': urllib.urlencode(str(requestData)) ,
-            'DataType': '2',
-           }
-    hash.update(str(requestData) + selfset['express']['key'], encoding='utf-8')
-    data['DataSign'] = urllib.urlencode(base64.b64encode(hash.hexdigest()))
-    r = requests.post('http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx',
-                         data=data,
-                         headers='application/x-www-form-urlencoded;charset=utf-8')
-    json = r.json()
-    try:
-        bt.tts(json['Traces'][-1]['AcceptStation'], tok)
-        speaker.speak()
-    except KeyError:
-        bt.tts('对不起，包裹信息查询失败', tok)
-        speaker.speak()
-        
+        data = {
+                'EBusinessID': '1349773',
+                'RequestType': '1002',
+                'RequestData': parse.quote(str(requestData)),
+                'DataType': '2',
+        }
+        strings = str(requestData) + '1f0c5c35-67a8-495f-b3ab-a7fc534a826f'
+        string = strings.encode(encoding='UTF-8',errors='strict')
+        hashs.update(string)
+        s = hashs.hexdigest().encode('utf-8')
+        y = base64.b64encode(s)
+        z = str(y, 'utf-8')
+        data['DataSign'] = parse.quote(z, 'utf-8')
+        r = requests.post('http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx',
+                          data=data)
+        json = r.json()
+        try:
+            bt.tts(json['Traces'][-1]['AcceptStation'], tok)
+            speaker.speak()
+        except KeyError:
+            bt.tts('对不起，包裹信息查询失败', tok)
+            speaker.speak()
         
     
     
