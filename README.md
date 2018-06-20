@@ -5,6 +5,7 @@
 ![QQ](https://img.shields.io/badge/QQ-1481605673-yellow.svg)
 
 # 注意：小蓝-1（本版本）已经归档，进入小蓝-2，[小蓝-2](https://github.com/xiaoland/xiaolan)
+# 本版本请git clone再/home/pi目录下，然后将xiaolan-1改为xiaolan才能使用
 
 这是一个中文的智能家居控制对话机器人——由叮当衍生而来，目前还未100%完成，所以发上来，希望大家一起研发，一个人研发也没那么多点子和经验
 
