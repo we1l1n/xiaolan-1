@@ -55,14 +55,16 @@ def main(tok):
     selfset = setting.setting()
     hash = hashlib.md5()
     
-    bt.tts('您好，请说出您要查询的快递单号', tok)
+    bt.tts('您好，请说出您的快递单号和快递公司', tok)
     speaker.speak()
     speaker.ding()
     r.exrecord()
     speaker.dong()
+    idss = bs.stt('./voice.wav', tok)
+    ids = number_choose(ids, tok)
     
     requestData = {
-                   'OrderCode': id,
+                   'OrderCode': ids,
                    'ShipperCode': service,
                    'LogisticCode':'12345678'
         }
