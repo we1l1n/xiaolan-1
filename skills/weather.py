@@ -25,7 +25,13 @@ def main(tok):
     host = 'https://api.seniverse.com/v3/weather/now.json?key='
     key = selfset['weather']['key']
     
-    r = requests.get(host + key + '&location=ip&language=zh-Hans&unit=c')
+    data = {
+        'key': key,
+        'location': 'ip',
+        'language': 'zh-Hans',
+        'unit': 'c'
+    r = requests.get(host,
+                     data=data)
     
     json = r.json()
     bt.tts(',今天的天气是,' + json['results'][0]['now']['text'] + '，温度是,'  + json['results'][0]['now']['temperature'] + '，摄氏度，', tok)
