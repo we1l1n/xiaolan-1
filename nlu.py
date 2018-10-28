@@ -33,13 +33,16 @@ from maps import maps
 from music import xlMusic
 
 class Nlu(Xiaolan):
+
         def __init__(self):
+
+                super(Nlu, self).__init__()
                 self.intentlist = [
                         ['weather', ['天气', '天气怎么样', '查询天气', '今天天气'], ['city', slotdicts.dictcity()], 'weather'],
                         ['talk', ['我想跟你聊一聊', '我想聊你'], [], 'tuling'],
                         ['joke', ['我想听笑话', '笑话', '冷笑话', '给我讲一个笑话'], [], 'joke'],
                         ['news', ['我想听新闻', '今天的新闻', '新闻', '今天有什么新闻'], ['newstype', slotdicts.dictnewstype()] 'news'],
-                        ['smarthome', ['打开', '关闭', '开启', '获取', '传感器', '智能家居'], ['mode', slotdicts.dicthassmode(), 'cortolmode', slotdicts.dictcortolmode, 'device', slotdicts.dictdevice], 'cortolmode', self.dicthasscortolmode, 'device': self.dictdevice], 'hass'],
+                        ['smarthome', ['打开', '关闭', '开启', '获取', '传感器', '智能家居'], ['mode', slotdicts.dicthassmode(), 'cortolmode', slotdicts.dictcortolmode, 'device', slotdicts.dictdevice], 'cortolmode', self.dicthasscortolmode, 'device', self.dictdevice, 'hass'],
                         ['camera', ['拍一张照', '给我来一张', '拍照', '拍照'], [], 'camera']
                         ['clock', ['设定一个闹钟', '闹钟', '设置新闹钟', '新建闹钟'], ['day', self.dictday, 'weekday', self.dictweekday, 'hour', self.dicthour, 'minute', self.dictminute], 'clock']
                 ]
@@ -58,68 +61,8 @@ class Nlu(Xiaolan):
                                 returndict[slotslist[c]] = slotslist[b]['dict'][a]
                                 b = b + 2
                                 c = c + 2
-                                while self.turn == 0:
-                                    try:
-                                        if slotslist[b]['dict'][a] in text or slotslist[b]['same_means'][a] in text:
-                                                returndict[slotslist[c]] = slotslist[b]['dict'][a]
-                                                b = b + 2
-                                                c = c + 2
-                                                while self.turn == 0:
-                                                        if slotslist[b]['dict'][a] in text or slotslist[b]['same_means'][a] in text:
-                                                                returndict[slotslist[c]] = slotslist[b]['dict'][a]
-                                                                c = c + 2
-                                                                b = b + 2
-                                                                while self.turn == 0:
-                                                                        if slotslist[b]['dict'][a] in text or slotslist[b]['same_means'][a] in text:
-                                                                                returndict[slotslist[c]] = slotslist[b]['dict'][a]
-                                                                                c = c + 2
-                                                                                b = b + 2
-                                                                                while self.turn == 0:
-                                                                                        if slotslist[b]['dict'][a] in text or slotslist[b]['same_means'][a] in text:
-                                                                                                returndict[slotslist[c]] = slotslist[b]['dict'][a]
-                                                                                                c = c + 2
-                                                                                                b = b + 2
-                                                                                                while self.turn == 0:
-                                                                                                        if slotslist[b]['dict'][a] in text or slotslist[b]['same_means'][a] in text:
-                                                                                                                returndict[slotslist[c]] = slotslist[b]['dict'][a]
-                                                                                                                c = c + 2
-                                                                                                                b = b + 2
-                                                                                                                while self.turn == 0:
-                                                                                                                        if slotslist[b]['dict'][a] in text or slotslist[b]['same_means'][a] in text:
-                                                                                                                                returndict[slotslist[c]] = slotslist[b]['dict'][a]
-                                                                                                                                c = c + 2
-                                                                                                                                b = b + 2
-                                                                                                                                while self.turn == 0:
-                                                                                                                                        if slotslist[b]['dict'][a] in text or slotslist[b]['same_means'][a] in text:
-                                                                                                                                                returndict[slotslist[c]] = slotslist[b]['dict'][a]
-                                                                                                                                                c = c + 2
-                                                                                                                                                b = b + 2
-                                                                                                                                                while self.turn == 0:
-                                                                                                                                                        if slotslist[b]['dict'][a] in text or slotslist[b]['same_means'][a] in text:
-                                                                                                                                                                returndict[slotslist[c]] = slotslist[b]['dict'][a]
-                                                                                                                                                                c = c + 2
-                                                                                                                                                                b = b + 2
-                                                                                                                                                                break
-                                                                                                                                                        else:
-                                                                                                                                                                a = a + 1
-                                                                                                                                        else:
-                                                                                                                                                a = a + 1
-                                                                                                                        else:
-                                                                                                                                a = a + 1
-                                                                                                        else:
-                                                                                                                a = a + 1
-                                                                                        else:
-                                                                                                a = a + 1
-                                                                        else:
-                                                                                a = a + 1
-                                                        else:
-                                                                a = a + 1
-                                                        
-                                        else:
-                                                a = a + 1
-                                    except KeyError:
-                                        break
-                            else:
+
+                        else:
                                 a = a + 1
                 return returndict
             except KeyError:
@@ -210,41 +153,7 @@ class Nlu(Xiaolan):
 
         def xl_intent(self, text):
                 
-            try:
-                while self.turn == 0:
-                    
-                        if self.intentlist[b][1][b] in text:
-                                if self.intentlist[b][2] != [] or self.intentlist[b][1] != None:
-                                        slots = self.xlnlu.get_slots(self.intentlist[b][2], text)
-                                else:
-                                        slots = None
-                                returndict = {
-                                        'intent': self.intentlist[b][0],
-                                        'skill': self.intentlist[b][3],
-                                        'slots': slots
-                                        'command': [
-                                                'skill', 'start'
-                                        ]
-                                        'states': [
-                                                'xl_nlu_intent_back'
-                                        ]
-                                }
-                                break
-                        else:
-                                b = b + 1
-                return returndict
-            except KeyError:
-                return {
-                        'intent': self.xlnlu.iflytek_intent(text),
-                        'skill': self.xlnlu.iflytek_intent(text),
-                        'slots': None,
-                        'commmands': [
-                                'skill', 'start'
-                        ]
-                        'states': [
-                                'iflytek_nlu_intent_back'
-                        ]
-                }
+            return self.iflytek_intent(text)
                         
                                 
                                 
@@ -254,6 +163,7 @@ class Skills(Xiaolan):
 
     def __init__(self):
 
+        super(Skills, self).__init__()
         self.skillsdef = {
                 'weather': ['weather', weather.start()],
                 'clock': ['clock', clock.start()],
@@ -265,7 +175,7 @@ class Skills(Xiaolan):
     def startskills(self, intentdict, text):
         
         if intentdict[3] == self.skillsdef[intentdict[0]][0]:
-            
+            pass
         
         
 

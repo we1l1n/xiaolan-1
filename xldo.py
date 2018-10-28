@@ -96,8 +96,8 @@ class Xiaolan(object):
         if text == None or text == '':
             speaker.speacilrecorder()
         else:
-            intentdict = xlnlu.xl_intent(text)
-            sk.getskills(intentdict[a][0], text)
+            intentdict = self.xlnlu.xl_intent(text)
+            self.sk.getskills(intentdict[a][0], text)
     
 
 
