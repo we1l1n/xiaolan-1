@@ -67,30 +67,30 @@ def main(tok):
                    'OrderCode': ids,
                    'ShipperCode': service,
                    'LogisticCode':'12345678'
-        }
-    
-        data = {
-                'EBusinessID': '1349773',
-                'RequestType': '1002',
-                'RequestData': parse.quote(str(requestData)),
-                'DataType': '2',
-        }
-        strings = str(requestData) + '1f0c5c35-67a8-495f-b3ab-a7fc534a826f'
-        string = strings.encode(encoding='UTF-8',errors='strict')
-        hashs.update(string)
-        s = hashs.hexdigest().encode('utf-8')
-        y = base64.b64encode(s)
-        z = str(y, 'utf-8')
-        data['DataSign'] = parse.quote(z, 'utf-8')
-        r = requests.post('http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx',
-                          data=data)
-        json = r.json()
-        try:
-            bt.tts(json['Traces'][-1]['AcceptStation'], tok)
-            speaker.speak()
-        except KeyError:
-            bt.tts('对不起，包裹信息查询失败', tok)
-            speaker.speak()
+    }
+
+    data = {
+        'EBusinessID': '1349773',
+        'RequestType': '1002',
+        'RequestData': parse.quote(str(requestData)),
+        'DataType': '2',
+    }
+    strings = str(requestData) + '1f0c5c35-67a8-495f-b3ab-a7fc534a826f'
+    string = strings.encode(encoding='UTF-8', errors='strict')
+    hashs.update(string)
+    s = hashs.hexdigest().encode('utf-8')
+    y = base64.b64encode(s)
+    z = str(y, 'utf-8')
+    data['DataSign'] = parse.quote(z, 'utf-8')
+    r = requests.post('http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx',
+                      data=data)
+    json = r.json()
+    try:
+        bt.tts(json['Traces'][-1]['AcceptStation'], tok)
+        speaker.speak()
+    except KeyError:
+        bt.tts('对不起，包裹信息查询失败', tok)
+        speaker.speak()
         
     
     

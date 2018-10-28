@@ -30,6 +30,7 @@ def main(tok):
         'location': 'ip',
         'language': 'zh-Hans',
         'unit': 'c'
+    }
     r = requests.get(host,
                      data=data)
     

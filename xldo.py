@@ -28,9 +28,10 @@ from music import xlMusic
 
 
 class Xiaolan(object):
+
     def __init__(self):
         
-        self.awaken = Xiaolan.awaken()
+        self.awaken = self.awaken()
         self.selfset = setting.setting()
         self.xl = Xiaolan()
         self.r = recorder()
@@ -44,11 +45,11 @@ class Xiaolan(object):
         self.xlnlu = Nlu()
         self.tok = bt.get_token()
         
-    def awaken():
+    def awaken(self):
     
         os.system('python /home/pi/xiaolan/snowboy.py')
     
-    def welcome():
+    def welcome(self):
     
         print ('''
 
@@ -85,7 +86,7 @@ class Xiaolan(object):
             return text
         
     
-    def convenstation():
+    def convenstation(self):
         
         speaker.ding()
         r.record()
