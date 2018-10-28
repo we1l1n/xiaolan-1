@@ -26,6 +26,7 @@ from smarthome import hass
 from maps import maps
 from music import xlMusic
 
+
 class Xiaolan(object):
     def __init__(self):
         
